@@ -16,6 +16,7 @@ namespace JournalMdServer.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<WeightMeasurement> WeightMeasurements { get; set; }
 
         public void BeginTransaction()
         {
@@ -57,6 +58,15 @@ namespace JournalMdServer.Models
 
                 new Note { Id = 4, Title = "Bla 2.1", UserId = 2 },
                 new Note { Id = 5, Title = "Bla 2.2", UserId = 2 }
+            );
+
+            modelBuilder.Entity<WeightMeasurement>().HasData(
+                new WeightMeasurement { Id = 1, Weight = 80.9, Height = 182.0, UserId = 1 },
+                new WeightMeasurement { Id = 2, Weight = 82.4, Height = 182.0, UserId = 1 },
+                new WeightMeasurement { Id = 3, Weight = 81.6, Height = 182.0, UserId = 1 },
+
+                new WeightMeasurement { Id = 4, Weight = 70.1, Height = 177.0, UserId = 2 },
+                new WeightMeasurement { Id = 5, Weight = 71.2, Height = 177.0, UserId = 2 }
             );
         }
     }

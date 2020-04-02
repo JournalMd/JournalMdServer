@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JournalMdServer.DTOs.Notes;
 using JournalMdServer.DTOs.Users;
+using JournalMdServer.DTOs.WeightMeasurements;
 
 namespace JournalMdServer.Models
 {
@@ -16,6 +17,10 @@ namespace JournalMdServer.Models
             // Notes
             CreateMap<Note, NoteOutput>();
             CreateMap<NoteInput, Note>();
+
+            // WeightMeasurements
+            CreateMap<WeightMeasurement, WeightMeasurementOutput>();
+            CreateMap<WeightMeasurementInput, WeightMeasurement>();
         }
     }
 }

@@ -26,5 +26,6 @@ namespace JournalMdServer.Models
 
         // Relations
         public ICollection<Note> Notes { get; set; }
+        public ICollection<WeightMeasurement> WeightMeasurements { get; set; }
     }
 }

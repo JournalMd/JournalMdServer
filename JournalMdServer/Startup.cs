@@ -147,6 +147,7 @@ namespace JournalMdServer
             // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
             services.AddScoped<UsersService>();
             services.AddScoped<NotesService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
+            services.AddScoped<WeightMeasurementsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

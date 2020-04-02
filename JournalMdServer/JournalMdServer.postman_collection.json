@@ -1,0 +1,533 @@
+{
+	"info": {
+		"_postman_id": "ce6533a0-6225-429a-8bfd-219a9679e891",
+		"name": "JournalMdServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"test\",\r\n  \"password\": \"12345678\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Users/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"1\",\r\n  \"password\": \"12345678\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Users/authenticate",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Users",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "GetNotes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Notes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetNotes No Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa99fdb4-b24c-42c1-b834-80061c4c7208",
+								"exec": [
+									"pm.test(\"response is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Notes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetNote 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Notes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostNote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutNote",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"userid\": 99,\n\t\"bla\": 4\n}\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteNote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Notes/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WeightMeasurements",
+			"item": [
+				{
+					"name": "GetWeightMeasurements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetWeightMeasurement No Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa99fdb4-b24c-42c1-b834-80061c4c7208",
+								"exec": [
+									"pm.test(\"response is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetWeightMeasurement 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostWeightMeasurement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"weight\": 99.0,\r\n\t\"height\": 182.0,\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutWeightMeasurement",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"weight\": 99.1,\n\t\"height\": 182.1,\n\t\"userid\": 99,\n\t\"bla\": 4\n}\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteWeightMeasurement",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/WeightMeasurements/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"WeightMeasurements",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NzcxMTEzNDIsImV4cCI6MTU3NzcxNjE0MiwiaWF0IjoxNTc3MTExMzQyfQ.IwrkfRl6uwdR0r9wRGUUd65OPlzsJgs9JE5u2SRAb90",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8f14d831-1c66-4384-b490-cee9e54cb6a4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fbe10a40-5620-49d3-a9c8-db7b5467e1f0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
