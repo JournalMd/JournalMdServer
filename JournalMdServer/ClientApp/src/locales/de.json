@@ -31,6 +31,8 @@
     "settings": "Einstellungen",
     "home": "Home",
     "signOut": "Ausloggen",
+    "login": "Einloggen",
+    "register": "Anmelden",
 
     "dashboard": "Dashboard",
     "fastEntry": "Schnellerfassung",

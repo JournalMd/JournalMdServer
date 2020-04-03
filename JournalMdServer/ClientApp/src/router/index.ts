@@ -1,8 +1,20 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store';
 import Dashboard from '../views/Dashboard.vue';
 
 Vue.use(VueRouter);
+
+function requireAuth(to: any, from: any, next: any) {
+  if (!store.state.auth.authenticated) {
+    next({
+      path: '/login',
+      // query: { redirect: to.fullPath, from: from.fullPath },
+    });
+  } else {
+    next();
+  }
+}
 
 // Use webpackChunkName for route level code-splitting => lazy-loaded
 const routes = [
@@ -10,6 +22,24 @@ const routes = [
     path: '/',
     name: 'dashboard',
     component: Dashboard,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue'),
+  },
+  {
+    path: '/logout',
+    beforeEnter(to: any, from: any, next: any) {
+      store.dispatch('auth/logout');
+      next('/login');
+    },
   },
   {
     path: '/test/:testParam',

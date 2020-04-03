@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app v-if="authenticated">
       <template v-slot:prepend>
         <v-list-item two-line>
           <v-list-item-avatar>
@@ -73,7 +73,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>-->
 
-      <v-menu left bottom transition="scale-transition" :close-on-content-click="false">
+      <v-menu left bottom transition="scale-transition" :close-on-content-click="false" v-if="authenticated">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -106,6 +106,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import { State, namespace } from 'vuex-class';
 import ThemeSwitch from '@/components/globalsettings/ThemeSwitch.vue';
 
+const authModule = namespace('auth');
 const userModule = namespace('user');
 
 @Component({
@@ -117,7 +118,7 @@ export default class Navbar extends Vue {
     topSubMenu: { icon: string, text: string, route: string}[] = [
       { icon: 'mdi-account', text: 'views.profile', route: '/profile' },
       { icon: 'mdi-settings', text: 'views.settings', route: '/settings' },
-      { icon: 'mdi-exit-to-app', text: 'views.signOut', route: '/' },
+      { icon: 'mdi-exit-to-app', text: 'views.signOut', route: '/logout' },
     ];
 
     links: { icon: string, text: string, route: string}[] = [
@@ -160,6 +161,8 @@ export default class Navbar extends Vue {
         ],
       },
     ];
+
+  @authModule.State authenticated!: boolean;
 
   @userModule.State firstName!: string | null;
 

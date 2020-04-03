@@ -22,4 +22,12 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
 };

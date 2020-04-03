@@ -31,6 +31,8 @@
     "settings": "Settings",
     "home": "Home",
     "signOut": "Sign Out",
+    "login": "Login",
+    "register": "Register",
 
     "dashboard": "Dashboard",
     "fastEntry": "Fast Entry",
