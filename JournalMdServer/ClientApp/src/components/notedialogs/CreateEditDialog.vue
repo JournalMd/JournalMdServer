@@ -39,12 +39,12 @@
                 ></v-autocomplete>
               </v-col>
 
-              <v-col cols="12"  v-for="field in type.fields" :key="field.id">
-                <v-text-field  v-if="field.type === 'number'" v-model="note.fields[field.name].value" :label="field.title"
-                  filled :rules="[rules.number, rules.required]"></v-text-field>
+              <v-col cols="12" v-for="field in type.fields" :key="field.id">
+                <v-text-field v-if="field.type === 'number'" v-model="note.fields[field.name].value" :label="field.title"
+                              filled :rules="[rules.number, rules.required]"></v-text-field>
                 <v-checkbox v-if="field.type === 'boolean'" v-model="note.fields[field.name].value" :label="field.title"></v-checkbox>
                 <v-menu v-if="field.type === 'date'" v-model="datemenu" :close-on-content-click="false" :nudge-right="40"
-                  transition="scale-transition" offset-y min-width="290px">
+                        transition="scale-transition" offset-y min-width="290px">
                   <template v-slot:activator="{ on }">
                     <v-text-field v-model="note.fields[field.name].value" label="Date" prepend-icon="mdi-calendar" readonly v-on="on">
                     </v-text-field>
@@ -120,13 +120,26 @@ export default class CreateEditDialog extends Mixins(NoteTypesMixin) {
       this.note = this.$store.state.dialogs.editNote;
       this.type = this.getTypeById(this.note.typeId);
     } else if (this.$store.state.dialogs.createNote !== null) {
+      this.type = this.$store.state.dialogs.createNote;
+
+      // create empty fields
+      const noteFields = this.type.fields.reduce((map: any, field: any) => {
+        const newMap = map;
+        newMap[field.name] = {
+          id: -1,
+          fieldId: field.id,
+          value: '',
+        };
+        return newMap;
+      }, {});
+
       this.note = {
         title: '',
         description: '',
         mood: 3,
         typeId: this.$store.state.dialogs.createNote.id,
+        fields: noteFields,
       };
-      this.type = this.$store.state.dialogs.createNote;
     } // else - won't show anyway
 
     if (this.$refs.cuform != null) {
