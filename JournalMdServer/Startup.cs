@@ -21,6 +21,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using VueCliMiddleware;
+using Microsoft.AspNetCore.SpaServices;
 
 namespace JournalMdServer
 {
@@ -45,6 +47,9 @@ namespace JournalMdServer
                 services.AddDbContext<JournalMdServerContext>(options => options.UseSqlServer(_configuration.GetConnectionString("JournalMdDatabase")));
             else
                 services.AddDbContext<JournalMdServerContext>(options => options.UseSqlite("Data Source=journalmd.db"));
+
+            // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
+            services.AddSpaStaticFiles(opt => opt.RootPath = "ClientApp/dist");
 
             // services.AddCors();
             services.AddControllers();
@@ -100,8 +105,8 @@ namespace JournalMdServer
                     c.SwaggerDoc("v1", new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = "JournalMdServer API",
-                        Description = "API documentation for Journal MD.",
+                        Title = "JournalMd Server",
+                        Description = "API documentation for JournalMd.",
                         TermsOfService = new Uri("https://www.spech.de/impressum"),
                         Contact = new OpenApiContact
                         {
@@ -170,6 +175,9 @@ namespace JournalMdServer
 
             app.UseHttpsRedirection();
 
+            // NOTE: PRODUCTION uses webpack static files
+            app.UseSpaStaticFiles();
+
             app.UseRouting();
 
             // TODO optimize
@@ -181,7 +189,26 @@ namespace JournalMdServer
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+
+                // NOTE: VueCliProxy is meant for developement and hot module reload
+                // NOTE: SSR has not been tested
+                // Production systems should only need the UseSpaStaticFiles() (above)
+                // You could wrap this proxy in either
+                // if (System.Diagnostics.Debugger.IsAttached)
+                // or a preprocessor such as #if DEBUG
+                if (env.IsDevelopment()) {
+                        endpoints.MapToVueCliProxy(
+                        "{*path}",
+                        new SpaOptions { SourcePath = "ClientApp" },
+                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                        regex: "Compiled successfully",
+                        forceKill: true
+                    );
+                }
+            });
         }
     }
 }

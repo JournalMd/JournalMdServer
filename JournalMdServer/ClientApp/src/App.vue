@@ -1,0 +1,30 @@
+<template>
+  <v-app>
+    <Navbar />
+    <v-content>
+      <GlobalDialogs ref="globalDialogs" />
+      <router-view/>
+    </v-content>
+  </v-app>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import Navbar from '@/components/Navbar.vue';
+import GlobalDialogs from '@/components/GlobalDialogs.vue';
+
+@Component({
+  components: { Navbar, GlobalDialogs },
+})
+export default class App extends Vue {
+  created() {
+    // this.$vuetify.theme.dark = true;
+    this.$store.dispatch('user/getUser'); // TODO: move to login
+    this.$store.dispatch('notes/getNoteTypes'); // TODO: handle elsewhere
+    this.$store.dispatch('notes/getLabels'); // TODO: handle elsewhere
+    this.$store.dispatch('notes/getInspirations'); // TODO: handle elsewhere
+    this.$store.dispatch('notes/getNotes'); // TODO: handle elsewhere
+  }
+}
+</script>
