@@ -60,7 +60,7 @@
           transition="scale-transition"
           width="40"
         />
-        <v-toolbar-title class="text-uppercase">Namen-Sind-Doof</v-toolbar-title>
+        <v-toolbar-title class="text-uppercase">JournalMd</v-toolbar-title>
       </div>
 
       <v-spacer></v-spacer>
