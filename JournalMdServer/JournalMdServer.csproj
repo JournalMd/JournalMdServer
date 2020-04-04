@@ -31,6 +31,9 @@
     <!-- Typescript/Javascript Client Configuration -->
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <Authors>Sebastian Pech</Authors>
+    <PackageProjectUrl>https://www.journal-md.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JournalMd/JournalMd</RepositoryUrl>
   </PropertyGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build">
     <!-- Build Target:  Ensure Node.js is installed -->
@@ -47,8 +50,8 @@
     </Exec>
   </Target>
 
-  <Target Name="EnsureNodeModulesInstalled" BeforeTargets="Build" Inputs="package.json" Outputs="packages-lock.json">
-    <!-- Build Target: Restore NPM packages using npm -->
+  <Target Name="EnsureNodeModulesInstalled" BeforeTargets="Build" Inputs="package.json" Outputs="yarn.lock">
+    <!-- Build Target: Restore NPM packages using yarn -->
     <Message Importance="high" Text="Restoring dependencies using 'yarn'. This may take several minutes..." />
 
     <Exec WorkingDirectory="$(SpaRoot)" Command="yarn" />

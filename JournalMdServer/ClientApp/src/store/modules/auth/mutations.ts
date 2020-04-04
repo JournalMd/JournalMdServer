@@ -1,10 +1,11 @@
 import Vue from 'vue';
-import { axiosAuthenticated, axiosUnauthenticated } from '@/api/api';
-import router from '@/router';
+import { axiosAuthenticated, axiosUnauthenticated } from '../../../api/api';
+import router from '../../../router';
 import {
   CHECK,
   REGISTER,
   LOGIN,
+  LOGIN_FAILED,
   LOGOUT,
 } from './mutation-types';
 
@@ -27,6 +28,10 @@ export default {
     axiosAuthenticated.defaults.headers.common.Authorization = `Bearer ${token}`;
 
     router.push('/');
+  },
+
+  [LOGIN_FAILED](state: any, token: string) {
+    state.authenticated = false;
   },
 
   [LOGOUT](state: any) {

@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store';
+import store from '../store';
 import Dashboard from '../views/Dashboard.vue';
 
 Vue.use(VueRouter);
 
 function requireAuth(to: any, from: any, next: any) {
-  if (!store.state.auth.authenticated) {
+  if (!(store.state as any).auth.authenticated) {
     next({
       path: '/login',
       // query: { redirect: to.fullPath, from: from.fullPath },

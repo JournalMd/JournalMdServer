@@ -1,9 +1,9 @@
-import { Commit } from 'vuex';
+import { Commit, Dispatch } from 'vuex';
 import { AxiosResponse } from 'axios';
-import { axiosAuthenticated, axiosUnauthenticated } from '@/api/api';
+import { axiosAuthenticated, axiosUnauthenticated } from '../../../api/api';
 import * as types from './mutation-types';
 
-export const getUser = ({ commit } : { commit: Commit}) => {
+export const getUser = ({ commit, dispatch }: { commit: Commit, dispatch: Dispatch }) => {
   axiosAuthenticated.get('users', {})
     .then((result) => {
       console.log('get user result', result);
@@ -15,7 +15,9 @@ export const getUser = ({ commit } : { commit: Commit}) => {
       commit(types.GET_USER, user);
     })
     .catch((error) => {
-      console.log('Get User Request failed...', error); // TODO handle this
+      console.log('Get User Request failed...', error);
+      commit(types.GET_USER, null);
+      dispatch('dialogs/addError', error.response.data.message, { root: true });
     });
 };
 
