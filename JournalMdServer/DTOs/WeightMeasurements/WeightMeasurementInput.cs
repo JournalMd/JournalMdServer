@@ -8,12 +8,14 @@ namespace JournalMdServer.DTOs.WeightMeasurements
 {
     public class WeightMeasurementInput
     {
+        public string Description { get; set; }
+
         [Required]
         public double Weight { get; set; }
-    
+
         [Required]
         public double Height { get; set; }
 
-        public string Description { get; set; }
+        public double GoalWeight { get; set; }
     }
 }

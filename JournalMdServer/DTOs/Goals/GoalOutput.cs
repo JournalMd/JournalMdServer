@@ -4,15 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using JournalMdServer.Interfaces.DTOs;
 
-namespace JournalMdServer.DTOs.Notes
+namespace JournalMdServer.DTOs.Goals
 {
-    public class NoteOutput : IBaseOutput
+    public class GoalOutput : IBaseOutput
     {
         public long Id { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public bool Completed { get; set; }
+
+        public DateTime Due { get; set; }
 
         public string Labels { get; set; }
     }

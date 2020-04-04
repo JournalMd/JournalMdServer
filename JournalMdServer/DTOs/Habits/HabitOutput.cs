@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using JournalMdServer.Interfaces.DTOs;
 
-namespace JournalMdServer.DTOs.Notes
+namespace JournalMdServer.DTOs.Habits
 {
-    public class NoteOutput : IBaseOutput
+    public class HabitOutput : IBaseOutput
     {
         public long Id { get; set; }
 

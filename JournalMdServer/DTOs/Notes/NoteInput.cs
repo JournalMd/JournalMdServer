@@ -12,5 +12,7 @@ namespace JournalMdServer.DTOs.Notes
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public string Labels { get; set; }
     }
 }

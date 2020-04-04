@@ -151,8 +151,15 @@ namespace JournalMdServer
             services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
 
             // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
-            services.AddScoped<UsersService>();
-            services.AddScoped<NotesService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
+            services.AddScoped<UsersService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
+            services.AddScoped<ActivitiesService>();
+            services.AddScoped<BodyMeasurementsService>();
+            services.AddScoped<GoalsService>();
+            services.AddScoped<HabitsService>();
+            services.AddScoped<JournalsService>();
+            services.AddScoped<NotesService>();
+            services.AddScoped<RoutinesService>();
+            services.AddScoped<TasksService>();
             services.AddScoped<WeightMeasurementsService>();
         }
 

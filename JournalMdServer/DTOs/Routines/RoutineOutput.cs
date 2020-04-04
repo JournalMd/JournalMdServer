@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using JournalMdServer.Interfaces.DTOs;
 
-namespace JournalMdServer.DTOs.Notes
+namespace JournalMdServer.DTOs.Routines
 {
-    public class NoteOutput : IBaseOutput
+    public class RoutineOutput : IBaseOutput
     {
         public long Id { get; set; }
 

@@ -1,16 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using JournalMdServer.Services;
 using Microsoft.AspNetCore.Authorization;
-using JournalMdServer.DTOs.Notes;
+using JournalMdServer.DTOs.Tasks;
 
 namespace JournalMdServer.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class NotesController : BaseCRUDController<NotesService, NoteInput, NoteOutput>
+    public class TasksController : BaseCRUDController<TasksService, TaskInput, TaskOutput>
     {
-        public NotesController(NotesService service): base(service)
+        public TasksController(TasksService service) : base(service)
         {
         }
 
