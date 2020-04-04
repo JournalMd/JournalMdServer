@@ -11,6 +11,7 @@ using JournalMdServer.DTOs.Notes;
 using AutoMapper;
 using JournalMdServer.Helpers;
 using System.Web.Http.ModelBinding;
+using Task = System.Threading.Tasks.Task;
 
 namespace JournalMdServer.Services
 {

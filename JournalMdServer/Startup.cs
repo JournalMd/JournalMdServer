@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using VueCliMiddleware;
 using Microsoft.AspNetCore.SpaServices;
+using Task = System.Threading.Tasks.Task;
 
 namespace JournalMdServer
 {

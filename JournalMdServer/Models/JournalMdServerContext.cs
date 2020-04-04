@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using JournalMdServer.Interfaces.Models;
+using System;
 
 namespace JournalMdServer.Models
 {
@@ -11,12 +12,19 @@ namespace JournalMdServer.Models
         public JournalMdServerContext(DbContextOptions<JournalMdServerContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            Database.EnsureCreated(); // TODO Migrations on prod...
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Journal> Journals { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Routine> Routines { get; set; }
+        public DbSet<Habit> Habits { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Goal> Goals { get; set; }
+        public DbSet<Task> Tasks { get; set; }
         public DbSet<WeightMeasurement> WeightMeasurements { get; set; }
+        public DbSet<BodyMeasurement> BodyMeasurements { get; set; }
 
         public void BeginTransaction()
         {
@@ -52,21 +60,21 @@ namespace JournalMdServer.Models
             );
 
             modelBuilder.Entity<Note>().HasData(
-                new Note { Id = 1, Title = "Bla 1.1", UserId = 1 },
-                new Note { Id = 2, Title = "Bla 1.2", UserId = 1 },
-                new Note { Id = 3, Title = "Bla 1.3", UserId = 1 },
+                new Note { Id = 1, Title = "Bla 1.1", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 2, Title = "Bla 1.2", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 3, Title = "Bla 1.3", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
 
-                new Note { Id = 4, Title = "Bla 2.1", UserId = 2 },
-                new Note { Id = 5, Title = "Bla 2.2", UserId = 2 }
+                new Note { Id = 4, Title = "Bla 2.1", UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 5, Title = "Bla 2.2", UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
             );
 
             modelBuilder.Entity<WeightMeasurement>().HasData(
-                new WeightMeasurement { Id = 1, Weight = 80.9, Height = 182.0, UserId = 1 },
-                new WeightMeasurement { Id = 2, Weight = 82.4, Height = 182.0, UserId = 1 },
-                new WeightMeasurement { Id = 3, Weight = 81.6, Height = 182.0, UserId = 1 },
+                new WeightMeasurement { Id = 1, Weight = 80.9, Height = 182.0, UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new WeightMeasurement { Id = 2, Weight = 82.4, Height = 182.0, UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new WeightMeasurement { Id = 3, Weight = 81.6, Height = 182.0, UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
 
-                new WeightMeasurement { Id = 4, Weight = 70.1, Height = 177.0, UserId = 2 },
-                new WeightMeasurement { Id = 5, Weight = 71.2, Height = 177.0, UserId = 2 }
+                new WeightMeasurement { Id = 4, Weight = 70.1, Height = 177.0, UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new WeightMeasurement { Id = 5, Weight = 71.2, Height = 177.0, UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
             );
         }
     }

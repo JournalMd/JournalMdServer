@@ -1,9 +1,9 @@
-using JournalMdServer.Interfaces.Models;
+﻿using JournalMdServer.Interfaces.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace JournalMdServer.Models
 {
-    public class Note : BaseAuditEntity, IBaseModel
+    public class Routine : BaseAuditEntity, IBaseModel
     {
         [Required]
         public string Title { get; set; }

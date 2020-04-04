@@ -1,15 +1,20 @@
-using JournalMdServer.Interfaces.Models;
+﻿using JournalMdServer.Interfaces.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace JournalMdServer.Models
 {
-    public class Note : BaseAuditEntity, IBaseModel
+    public class Journal : BaseAuditEntity, IBaseModel
     {
         [Required]
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        public int Mood { get; set; }
+
         public string Labels { get; set; }
+
+        // TODO Images
     }
 }
