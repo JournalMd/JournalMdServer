@@ -19,7 +19,7 @@ import GlobalDialogs from '@/components/GlobalDialogs.vue';
 })
 export default class App extends Vue {
   created() {
-    this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = false;
 
     this.$store.dispatch('notes/getNoteTypes'); // TODO: handle elsewhere
     this.$store.dispatch('notes/getLabels'); // TODO: handle elsewhere

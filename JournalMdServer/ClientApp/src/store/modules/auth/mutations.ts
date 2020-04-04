@@ -4,6 +4,7 @@ import router from '../../../router';
 import {
   CHECK,
   REGISTER,
+  REGISTER_FAILED,
   LOGIN,
   LOGIN_FAILED,
   LOGOUT,
@@ -19,7 +20,11 @@ export default {
   },
 
   [REGISTER]() {
-    //
+    router.push('/login');
+  },
+
+  [REGISTER_FAILED](state: any) {
+    state.authenticated = false;
   },
 
   [LOGIN](state: any, token: string) {
@@ -30,7 +35,7 @@ export default {
     router.push('/');
   },
 
-  [LOGIN_FAILED](state: any, token: string) {
+  [LOGIN_FAILED](state: any) {
     state.authenticated = false;
   },
 

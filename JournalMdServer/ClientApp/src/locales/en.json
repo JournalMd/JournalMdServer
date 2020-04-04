@@ -24,7 +24,9 @@
   },
   "fields": {
     "title": "Title",
-    "description": "Description"
+    "description": "Description",
+    "email": "E-Mail",
+    "password": "Password"
   },
   "views": {
     "profile": "Profile",

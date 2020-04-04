@@ -15,8 +15,8 @@ export const getUser = ({ commit, dispatch }: { commit: Commit, dispatch: Dispat
       commit(types.GET_USER, user);
     })
     .catch((error) => {
-      commit(types.GET_USER_FAILED);
       dispatch('dialogs/addError', error.response.data.message, { root: true });
+      commit(types.GET_USER_FAILED);
     });
 };
 
