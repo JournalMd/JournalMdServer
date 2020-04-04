@@ -31,5 +31,21 @@ namespace JournalMdServer.DTOs.BodyMeasurements
         public double TotalBodyWater { get; set; }
 
         public double MuscleMass { get; set; }
+
+        /// <summary>
+        /// Calculated
+        /// https://en.wikipedia.org/wiki/Waist%E2%80%93hip_ratio
+        /// https://de.wikipedia.org/wiki/Taille-H%C3%BCft-Verh%C3%A4ltnis
+        /// </summary>
+        public double? WaistToHipRatio
+        {  
+            get
+            {
+                if (/*Waist == null || Hips == null ||*/ Waist <= 0 || Hips <= 0)
+                    return null;
+
+                return Waist / Hips;
+            } 
+        }
     }
 }

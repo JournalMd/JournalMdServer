@@ -18,5 +18,35 @@ namespace JournalMdServer.DTOs.WeightMeasurements
         public double Height { get; set; }
 
         public double GoalWeight { get; set; }
+
+        /// <summary>
+        /// Calculated
+        /// https://de.wikipedia.org/wiki/Body-Mass-Index
+        /// </summary>
+        public double? BodyMassIndex
+        {
+            get
+            {
+                if (/*Waist == null || Hips == null ||*/ Weight <= 0 || Height <= 0)
+                    return null;
+
+                return Weight / (Height * Height) * 10000.0;
+            }
+        }
+
+        /// <summary>
+        /// Calculated
+        /// https://de.wikipedia.org/wiki/Ponderal-Index
+        /// </summary>
+        public double? PonderalIndex
+        {
+            get
+            {
+                if (/*Waist == null || Hips == null ||*/ Weight <= 0 || Height <= 0)
+                    return null;
+
+                return Weight / (Height * Height * Height) * 10000.0;
+            }
+        }
     }
 }
