@@ -12,7 +12,7 @@ namespace JournalMdServer.Helpers
         public static long GetAuthenticatedId(this ControllerBase controllerBase)
         {
             if (!controllerBase.User.Identity.IsAuthenticated)
-                throw new AppException("User is somehow not authenticated!");
+                throw new AppException("User is not authenticated!");
 
             string username = controllerBase.User.Identity.Name;
             if (!long.TryParse(username, out long id))

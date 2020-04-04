@@ -32,14 +32,14 @@ namespace JournalMdServer.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WeightMeasurementOutput>>> GetWeightMeasurements()
         {
-            return Ok(await _weightMeasurementsService.GetItems(this.GetAuthenticatedId()));
+            return Ok(await _weightMeasurementsService.GetAll(this.GetAuthenticatedId()));
         }
 
         // GET: api/WeightMeasurements/5
         [HttpGet("{id}")]
         public async Task<ActionResult<WeightMeasurementOutput>> GetWeightMeasurement(long id)
         {
-            var weightMeasurement = await _weightMeasurementsService.GetItem(id, this.GetAuthenticatedId());
+            var weightMeasurement = await _weightMeasurementsService.GetById(id, this.GetAuthenticatedId());
 
             if (weightMeasurement == null)
                 return NotFound();
@@ -54,7 +54,7 @@ namespace JournalMdServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
 
-            var newWeightMeasurement = await _weightMeasurementsService.Insert(weightMeasurement, this.GetAuthenticatedId());
+            var newWeightMeasurement = await _weightMeasurementsService.Create(weightMeasurement, this.GetAuthenticatedId());
             return CreatedAtAction(nameof(GetWeightMeasurement), new { id = newWeightMeasurement.Id }, newWeightMeasurement);
         }
 

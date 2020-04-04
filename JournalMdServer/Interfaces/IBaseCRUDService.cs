@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,17 +14,14 @@ using JournalMdServer.DTOs.Notes;
 using JournalMdServer.Helpers;
 using JournalMdServer.DTOs;
 
-namespace JournalMdServer.Controllers
+namespace JournalMdServer.Interfaces
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NotesController : BaseCRUDController<NotesService, NoteInput, NoteOutput>
+    public interface IBaseCRUDService<INP, OUTP>
     {
-        public NotesController(NotesService service): base(service)
-        {
-        }
-
-        // Intentionally left empty
+        public Task<ActionResult<IEnumerable<OUTP>>> GetAll(long userId);
+        public Task<OUTP> GetById(long id, long userId);
+        public Task<OUTP> Create(INP inputModel, long userId);
+        public Task Update(long id, INP inputModel, long userId);
+        public Task<long?> Delete(long id, long userId);
     }
 }

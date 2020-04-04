@@ -14,5 +14,9 @@ namespace JournalMdServer.Models
         public DateTime CreatedAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }
+
+        // FK
+        public long UserId { get; set; }
+        public User User { get; set; }
     }
 }

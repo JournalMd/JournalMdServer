@@ -7,7 +7,7 @@ namespace JournalMdServer.Interfaces.Models
     {
         public interface IDataContext
         {
-            public DbSet<Note> Notes { get; set; }
+            // public DbSet<Note> Notes { get; set; }
 
             void BeginTransaction();
             void Commit();
