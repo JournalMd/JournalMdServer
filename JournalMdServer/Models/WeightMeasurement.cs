@@ -13,6 +13,6 @@ namespace JournalMdServer.Models
         [Required]
         public double Height { get; set; }
 
-        public double GoalWeight { get; set; }
+        public double? GoalWeight { get; set; }
     }
 }

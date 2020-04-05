@@ -11,6 +11,7 @@ namespace JournalMdServer.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
         public int Mood { get; set; }
 
         public string Labels { get; set; }

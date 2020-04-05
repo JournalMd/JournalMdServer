@@ -17,7 +17,7 @@ namespace JournalMdServer.DTOs.WeightMeasurements
 
         public double Height { get; set; }
 
-        public double GoalWeight { get; set; }
+        public double? GoalWeight { get; set; }
 
         /// <summary>
         /// Calculated
@@ -27,7 +27,7 @@ namespace JournalMdServer.DTOs.WeightMeasurements
         {
             get
             {
-                if (/*Waist == null || Hips == null ||*/ Weight <= 0 || Height <= 0)
+                if (Weight <= 0 || Height <= 0)
                     return null;
 
                 return Weight / (Height * Height) * 10000.0;
@@ -42,7 +42,7 @@ namespace JournalMdServer.DTOs.WeightMeasurements
         {
             get
             {
-                if (/*Waist == null || Hips == null ||*/ Weight <= 0 || Height <= 0)
+                if (Weight <= 0 || Height <= 0)
                     return null;
 
                 return Weight / (Height * Height * Height) * 10000.0;

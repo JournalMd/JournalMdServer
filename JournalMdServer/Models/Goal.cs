@@ -11,9 +11,10 @@ namespace JournalMdServer.Models
 
         public string Description { get; set; }
 
+        [Required]
         public bool Completed { get; set; }
 
-        public DateTime Due { get; set; }
+        public DateTime? Due { get; set; }
 
         public string Labels { get; set; }
     }

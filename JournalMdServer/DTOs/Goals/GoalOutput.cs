@@ -16,7 +16,7 @@ namespace JournalMdServer.DTOs.Goals
 
         public bool Completed { get; set; }
 
-        public DateTime Due { get; set; }
+        public DateTime? Due { get; set; }
 
         public string Labels { get; set; }
     }

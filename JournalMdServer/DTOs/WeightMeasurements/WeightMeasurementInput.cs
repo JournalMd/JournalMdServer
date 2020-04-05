@@ -16,6 +16,6 @@ namespace JournalMdServer.DTOs.WeightMeasurements
         [Required]
         public double Height { get; set; }
 
-        public double GoalWeight { get; set; }
+        public double? GoalWeight { get; set; }
     }
 }
