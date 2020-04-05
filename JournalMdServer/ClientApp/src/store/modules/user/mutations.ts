@@ -3,14 +3,10 @@ import { User } from '../../../models/user';
 
 export default {
   [GET_USER](state: any, user: User) {
-    state.email = user.email;
-    state.firstName = user.firstName;
-    state.lastName = user.lastName;
+    state.user = user;
   },
 
   [GET_USER_FAILED](state: any) {
-    state.email = null;
-    state.firstName = null;
-    state.lastName = null;
+    state.user = null;
   },
 };

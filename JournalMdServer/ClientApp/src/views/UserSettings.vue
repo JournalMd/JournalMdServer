@@ -9,7 +9,7 @@
     <v-row>
       <v-col cols="12">
         <BaseCard>
-          Bald... (TODO).
+          <LocaleChanger class="maxWidth" />
         </BaseCard>
       </v-col>
     </v-row>
@@ -20,9 +20,10 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import BaseCard from '@/components/BaseCard.vue';
+import LocaleChanger from '@/components/globalsettings/LocaleChanger.vue';
 
 @Component({
-  components: { BaseCard },
+  components: { BaseCard, LocaleChanger },
 })
 export default class UserSettings extends Vue {
 }

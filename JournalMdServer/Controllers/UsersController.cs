@@ -64,20 +64,42 @@ namespace JournalMdServer.Controllers
             return user;
         }
 
-        /*// PUT: api/Users/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(long id, User user)
+        // PUT: api/Users
+        [HttpPut]
+        public async Task<IActionResult> Update(UserInput model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
+
+            try
+            {
+                await _usersService.Update(model, this.GetAuthenticatedId());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+
+            return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        // PUT: api/Users
+        [HttpPut("password")]
+        public async Task<IActionResult> Update(UpdatePasswordInput model)
         {
-        }*/
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
+
+            try
+            {
+                await _usersService.UpdatePassword(model, this.GetAuthenticatedId());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+
+            return NoContent();
+        }
     }
 }

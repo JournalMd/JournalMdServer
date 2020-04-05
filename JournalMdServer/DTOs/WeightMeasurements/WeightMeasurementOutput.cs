@@ -45,7 +45,7 @@ namespace JournalMdServer.DTOs.WeightMeasurements
                 if (Weight <= 0 || Height <= 0)
                     return null;
 
-                return Weight / (Height * Height * Height) * 10000.0;
+                return Weight / (Height * Height * Height) * 1000000.0;
             }
         }
     }

@@ -59,7 +59,7 @@ namespace JournalMdServer.Services
         {
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
-            if (id != dbEntry.Id)
+            if (dbEntry == null || id != dbEntry.Id)
                 throw new ArgumentException("Invalid id");
 
             dbEntry = _mapper.Map<INP, TEntity>(inputModel, dbEntry);

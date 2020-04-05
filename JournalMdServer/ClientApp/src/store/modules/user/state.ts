@@ -1,5 +1,5 @@
+import { User } from '../../../models/user';
+
 export default {
-  email: null,
-  firstName: null,
-  lastName: null,
+  user: null,
 };

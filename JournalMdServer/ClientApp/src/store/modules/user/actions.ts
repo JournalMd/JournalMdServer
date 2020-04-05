@@ -11,6 +11,8 @@ export const getUser = ({ commit, dispatch }: { commit: Commit, dispatch: Dispat
         email: result.data.username,
         firstName: result.data.firstName,
         lastName: result.data.lastName,
+        gender: result.data.gender,
+        dateOfBirth: result.data.dateOfBirth != null ? result.data.dateOfBirth.substring(0, 10) : result.data.dateOfBirth,
       };
       commit(types.GET_USER, user);
     })

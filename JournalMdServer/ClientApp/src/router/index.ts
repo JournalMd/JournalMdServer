@@ -1,11 +1,11 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, { Route } from 'vue-router';
 import store from '../store';
 import Dashboard from '../views/Dashboard.vue';
 
 Vue.use(VueRouter);
 
-function requireAuth(to: any, from: any, next: any) {
+function requireAuth(to: Route, from: Route, next: any) {
   if (!(store.state as any).auth.authenticated) {
     next({
       path: '/login',
@@ -45,32 +45,38 @@ const routes = [
     path: '/test/:testParam',
     name: 'test',
     component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/fastentry',
     name: 'fastentry',
     component: () => import(/* webpackChunkName: "fastentry" */ '../views/FastEntry.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/entry',
     name: 'entry',
     component: () => import(/* webpackChunkName: "entry" */ '../views/Entry.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/types/:type',
     name: 'types',
     props: true,
     component: () => import(/* webpackChunkName: "overview" */ '../views/Overview.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/profile',
     name: 'userprofile',
     component: () => import(/* webpackChunkName: "userprofile" */ '../views/UserProfile.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/settings',
     name: 'usersettings',
     component: () => import(/* webpackChunkName: "usersettings" */ '../views/UserSettings.vue'),
+    beforeEnter: requireAuth,
   },
 ];
 

@@ -18,6 +18,7 @@ namespace JournalMdServer.Models
         {
             // Users
             CreateMap<RegisterInput, User>();
+            CreateMap<UserInput, User>();
             CreateMap<User, RegisterOutput>();
             CreateMap<User, UserOutput>();
 

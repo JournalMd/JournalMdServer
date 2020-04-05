@@ -192,15 +192,4 @@ export default class CreateEditDialog extends Mixins(NoteTypesMixin) {
     }
   }
 }
-
-/*
-  data() {
-    const note = this.$store.getters['notes/getNoteById'](this.id);
-    return {
-      title: note ? note.title : '',
-      description: note ? note.description : '',
-      mood: note ? note.mood : 3,
-      mode: this.edit ? 'edit' : 'create',
-
-*/
 </script>

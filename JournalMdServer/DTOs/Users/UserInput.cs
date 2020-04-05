@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 
 namespace JournalMdServer.DTOs.Users
 {
-    public class UpdateInput
+    public class UserInput
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string Gender { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
     }
 }

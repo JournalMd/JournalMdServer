@@ -7,7 +7,7 @@
             <img src="https://randomuser.me/api/portraits/women/81.jpg">
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ firstName }} {{ lastName }}</v-list-item-title>
+            <v-list-item-title>{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
             <v-list-item-subtitle>Premium User</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -73,7 +73,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>-->
 
-      <v-menu left bottom transition="scale-transition" :close-on-content-click="false" v-if="authenticated">
+      <v-menu left bottom transition="scale-transition" :close-on-content-click="false">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -86,14 +86,16 @@
             </v-list-item-action>
             <v-list-item-title>{{ $t('general.darkTheme') }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-for="link in topSubMenu" :key="link.text" router :to="link.route">
-            <v-list-item-action>
-              <v-icon>{{ link.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ $t(link.text) }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+          <template v-if="authenticated">
+            <v-list-item v-for="link in topSubMenu" :key="link.text" router :to="link.route">
+              <v-list-item-action>
+                <v-icon>{{ link.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>{{ $t(link.text) }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -105,6 +107,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { State, namespace } from 'vuex-class';
 import ThemeSwitch from '@/components/globalsettings/ThemeSwitch.vue';
+import { User } from '@/models/user';
 
 const authModule = namespace('auth');
 const userModule = namespace('user');
@@ -117,7 +120,7 @@ export default class Navbar extends Vue {
 
     topSubMenu: { icon: string, text: string, route: string}[] = [
       { icon: 'mdi-account', text: 'views.profile', route: '/profile' },
-      { icon: 'mdi-settings', text: 'views.settings', route: '/settings' },
+      { icon: 'mdi-account-cog', text: 'views.settings', route: '/settings' },
       { icon: 'mdi-exit-to-app', text: 'views.signOut', route: '/logout' },
     ];
 
@@ -164,8 +167,6 @@ export default class Navbar extends Vue {
 
   @authModule.State authenticated!: boolean;
 
-  @userModule.State firstName!: string | null;
-
-  @userModule.State lastName!: string | null;
+  @userModule.State user!: User | null;
 }
 </script>

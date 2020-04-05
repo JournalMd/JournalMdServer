@@ -13,6 +13,7 @@ using JournalMdServer.Interfaces;
 using JournalMdServer.Models;
 using JournalMdServer.DTOs.Users;
 using AutoMapper;
+using Task = System.Threading.Tasks.Task;
 
 namespace JournalMdServer.Services
 {
@@ -109,9 +110,50 @@ namespace JournalMdServer.Services
             return _mapper.Map<RegisterOutput>(user);
         }
 
-        // Update
+        /// <summary>
+        /// Update user profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inputModel"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task Update(UserInput inputModel, long userId)
+        {
+            var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.Id == userId); // PK == userId
 
-        // UpdatePassword
+            if (dbEntry == null)
+                throw new ArgumentException("Invalid user");
+
+            dbEntry = _mapper.Map(inputModel, dbEntry);
+
+            _repository.Update(dbEntry);
+            await _repository.Context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Update user password
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inputModel"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task UpdatePassword(UpdatePasswordInput inputModel, long userId)
+        {
+            var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.Id == userId); // PK == userId
+
+            if (dbEntry == null)
+                throw new ArgumentException("Invalid user");
+
+            if(!VerifyPasswordHash(inputModel.OldPassword, dbEntry.PasswordHash, dbEntry.PasswordSalt))
+                throw new ArgumentException("Invalid password");
+
+            CreatePasswordHash(inputModel.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+            dbEntry.PasswordHash = passwordHash;
+            dbEntry.PasswordSalt = passwordSalt;
+
+            _repository.Update(dbEntry);
+            await _repository.Context.SaveChangesAsync();
+        }
 
         // https://github.com/cornflourblue/aspnet-core-3-registration-login-api/blob/master/Services/UserService.cs
         internal static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
