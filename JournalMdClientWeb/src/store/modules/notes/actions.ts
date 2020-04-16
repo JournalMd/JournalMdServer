@@ -3,6 +3,13 @@ import { Commit } from 'vuex';
 import * as types from './mutation-types';
 // import { axiosAuthenticated, axiosUnauthenticated } from '@/api/api';
 
+// TODO
+// Find a better name than note
+// getNoteType from fixed backend service
+// getLabels " => categories - labels => tags
+// all "notes" stay in one large object - api is called by specific type => generic
+// stronly typed entities is mainly base entity from db (=id) ;-)
+
 /* eslint-disable object-curly-newline, max-len, object-property-newline */ // Allow test data onliner
 export const getNoteTypes = ({ commit } : { commit: Commit}) => {
   const noteTypes: any[] = [ // + noteFields // TODO strongly type
