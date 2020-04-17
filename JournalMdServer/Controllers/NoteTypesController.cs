@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using JournalMdServer.Services;
 using Microsoft.AspNetCore.Authorization;
-using JournalMdServer.DTOs.Activities;
+using JournalMdServer.DTOs.NoteTypes;
 
 namespace JournalMdServer.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivitiesController : BaseCRUDController<ActivitiesService, ActivityInput, ActivityOutput>
+    public class NoteTypesController : BaseRController<NoteTypesService, NoteTypeOutput>
     {
-        public ActivitiesController(ActivitiesService service) : base(service)
+        public NoteTypesController(NoteTypesService service) : base(service)
         {
         }
 

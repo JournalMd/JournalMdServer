@@ -14,5 +14,8 @@ namespace JournalMdServer.DTOs.Notes
         public string Description { get; set; }
 
         public string Labels { get; set; }
+
+        // Relations
+        // public ICollection<NoteValueOutput> Values { get; set; } // TODO
     }
 }

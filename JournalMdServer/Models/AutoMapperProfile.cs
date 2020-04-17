@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
 using JournalMdServer.DTOs.Users;
+using JournalMdServer.DTOs.NoteTypes;
+using JournalMdServer.DTOs.NoteFields;
+using JournalMdServer.DTOs.Categories;
+using JournalMdServer.DTOs.Tags;
 using JournalMdServer.DTOs.Activities;
 using JournalMdServer.DTOs.BodyMeasurements;
 using JournalMdServer.DTOs.Goals;
@@ -22,41 +26,22 @@ namespace JournalMdServer.Models
             CreateMap<User, RegisterOutput>();
             CreateMap<User, UserOutput>();
 
-            // Activities
-            CreateMap<Activity, ActivityInput>();
-            CreateMap<ActivityOutput, Activity>();
+            // NoteTypes
+            CreateMap<NoteType, NoteTypeOutput>();
 
-            // BodyMeasurement
-            CreateMap<BodyMeasurement, BodyMeasurementOutput>();
-            CreateMap<BodyMeasurementInput, BodyMeasurement>();
+            // NoteFields
+            CreateMap<NoteField, NoteFieldOutput> ();
 
-            // Goal
-            CreateMap<Goal, GoalOutput>();
-            CreateMap<GoalInput, Goal>();
+            // Categories
+            CreateMap<Category, CategoryOutput>();
 
-            // Habit
-            CreateMap<Habit, HabitOutput>();
-            CreateMap<HabitInput, Habit>();
-
-            // Journal
-            CreateMap<Journal, JournalOutput>();
-            CreateMap<JournalInput, Journal>();
+            // Tags
+            CreateMap<TagInput, Tag>();
+            CreateMap<Tag, TagOutput>();
 
             // Notes
-            CreateMap<Note, NoteOutput>();
             CreateMap<NoteInput, Note>();
-
-            // Routine
-            CreateMap<Routine, RoutineOutput>();
-            CreateMap<RoutineInput, Routine>();
-
-            // Task
-            CreateMap<Task, TaskOutput>();
-            CreateMap<TaskInput, Task>();
-
-            // WeightMeasurements
-            CreateMap<WeightMeasurement, WeightMeasurementOutput>();
-            CreateMap<WeightMeasurementInput, WeightMeasurement>();
+            CreateMap<Note, NoteOutput>();
         }
     }
 }

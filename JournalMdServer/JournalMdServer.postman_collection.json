@@ -561,6 +561,170 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "NoteTypes",
+			"item": [
+				{
+					"name": "GetNoteTypes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/NoteTypes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"NoteTypes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "NoteFields",
+			"item": [
+				{
+					"name": "GetNoteFields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/NoteFields",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"NoteFields"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "GetTags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Tags",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Tags"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GetCategories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Categories",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Categories"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -568,7 +732,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODU4NTcyNTQsImV4cCI6MTU4NjQ2MjA1NCwiaWF0IjoxNTg1ODU3MjU0fQ.XjHoYWgj8uqA_4yLUqeAK3cbUhuIaQewNN9MhcpAOiY",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODcxMDk0NTcsImV4cCI6MTU4NzcxNDI1NywiaWF0IjoxNTg3MTA5NDU3fQ.JDXsR5y2NoYxcLK3fFTHJsjE0sRzMsvaL0YgMSVol74",
 				"type": "string"
 			}
 		]

@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using JournalMdServer.Services;
 using Microsoft.AspNetCore.Authorization;
-using JournalMdServer.DTOs.Goals;
+using JournalMdServer.DTOs.Tags;
 
 namespace JournalMdServer.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class GoalsController : BaseCRUDController<GoalsService, GoalInput, GoalOutput>
+    public class TagsController : BaseCRUDController<TagsService, TagInput, TagOutput>
     {
-        public GoalsController(GoalsService service) : base(service)
+        public TagsController(TagsService service) : base(service)
         {
         }
 
