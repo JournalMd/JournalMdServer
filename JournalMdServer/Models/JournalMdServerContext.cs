@@ -59,44 +59,50 @@ namespace JournalMdServer.Models
                 new NoteType { Id = 1, Order = 1, Name = "journal", Title = "Journal", Description = "Summarize your day or write down your thoughts." },
                 new NoteType { Id = 2, Order = 2, Name = "note", Title = "Note", Description = "Write a simple note." },
                 new NoteType { Id = 3, Order = 3, Name = "task", Title = "Task", Description = "A task you must complete." },
-//                      { id: 1, order: 1, name: 'completed', title: 'Completed', description: 'Is it done?', type: 'boolean', showInViews: true },
-//                      { id: 5, order: 2, name: 'due', title: 'Due', description: 'When is it due?', type: 'date', showInViews: true },
                 new NoteType { Id = 4, Order = 4, Name = "goal", Title = "Goal", Description = "A goal you want to achieve." },
-//                      { id: 2, order: 1, name: 'achieved', title: 'Achieved', description: 'Did you make it?', type: 'boolean', showInViews: true },
                 new NoteType { Id = 5, Order = 5, Name = "activity", Title = "Activity", Description = "Something you've done." },
                 new NoteType { Id = 6, Order = 6, Name = "habit", Title = "Habit", Description = "Record your habits." },
                 new NoteType { Id = 7, Order = 7, Name = "routine", Title = "Routine", Description = "Write down what you want to do every day." },
                 new NoteType { Id = 8, Order = 8, Name = "weightmeasurement", Title = "Weight Measurement", Description = "Track your weight." },
-//                      { id: 3, order: 1, name: 'height', title: 'Height', description: 'Your height in cm.', type: 'number', showInViews: false },
-//                      { id: 4, order: 2, name: 'weight', title: 'Weight', description: 'Your weight in kg.', type: 'number', showInViews: true },
                 new NoteType { Id = 9, Order = 9, Name = "bodymeasurement", Title = "Body Measurement", Description = "Track your body measurements." }
             );
 
             modelBuilder.Entity<NoteField>().HasData(
-                new NoteField { Id = 1, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 2, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 3, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 4, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 5, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 6, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 7, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 8, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 9, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 10, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 11, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 12, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 13, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 14, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 15, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 16, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 17, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 18, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 19, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 20, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 21, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 22, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 23, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" },
-                new NoteField { Id = 24, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Rules = "", Type = "" }
+                // Journal
+                new NoteField { Id = 1, NoteTypeId = 1, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 2, NoteTypeId = 1, Order = 2, Name = "description", Title = "Description", Description = "", Required = true, Rules = "", Type = "markdown" },
+                new NoteField { Id = 3, NoteTypeId = 1, Order = 3, Name = "mood", Title = "Mood", Description = "", Required = true, Rules = "", Type = "mood" },
+                new NoteField { Id = 4, NoteTypeId = 1, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                // Note
+                new NoteField { Id = 5, NoteTypeId = 2, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 6, NoteTypeId = 2, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 7, NoteTypeId = 2, Order = 3, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
+                new NoteField { Id = 8, NoteTypeId = 2, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                // Task
+                new NoteField { Id = 9, NoteTypeId = 3, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 10, NoteTypeId = 3, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 11, NoteTypeId = 3, Order = 3, Name = "completed", Title = "Completed", Description = "Is it done?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 12, NoteTypeId = 3, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
+                new NoteField { Id = 13, NoteTypeId = 3, Order = 5, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
+                new NoteField { Id = 14, NoteTypeId = 3, Order = 6, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                // Goal
+                new NoteField { Id = 15, NoteTypeId = 4, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 16, NoteTypeId = 4, Order = 2, Name = "description", Title = "", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 17, NoteTypeId = 4, Order = 3, Name = "achieved", Title = "Completed", Description = "Did you make it?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 18, NoteTypeId = 4, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
+                new NoteField { Id = 19, NoteTypeId = 4, Order = 5, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
+                new NoteField { Id = 20, NoteTypeId = 4, Order = 6, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                // Activity
+                new NoteField { Id = 21, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Required = true, Rules = "", Type = "" },
+                new NoteField { Id = 22, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Required = true, Rules = "", Type = "" },
+                new NoteField { Id = 23, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Required = true, Rules = "", Type = "" },
+                new NoteField { Id = 24, NoteTypeId = 1, Order = 1, Name = "", Title = "", Description = "", Required = true, Rules = "", Type = "" }
+                // Habit
+                // Routine
+                // Weightmeasurement
+                //   { id: 3, order: 1, name: 'height', title: 'Height', description: 'Your height in cm.', type: 'number' },
+                //   { id: 4, order: 2, name: 'weight', title: 'Weight', description: 'Your weight in kg.', type: 'number' },
+                // Bodymeasurement
             );
 
             // LABELS )=> category

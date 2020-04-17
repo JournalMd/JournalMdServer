@@ -29,14 +29,8 @@ namespace JournalMdServer.Models
         public DateTime? DateOfBirth { get; set; }
 
         // Relations
-        public ICollection<Journal> Journals { get; set; }
+        public ICollection<Tag> Tags { get; set; }
         public ICollection<Note> Notes { get; set; }
-        public ICollection<Routine> Routines { get; set; }
-        public ICollection<Habit> Habits { get; set; }
-        public ICollection<Activity> Activities { get; set; }
-        public ICollection<Goal> Goals{ get; set; }
-        public ICollection<Task> Tasks { get; set; }
-        public ICollection<WeightMeasurement> WeightMeasurements { get; set; }
-        public ICollection<BodyMeasurement> BodyMeasurements { get; set; }
+        public ICollection<NoteValue> NoteValues { get; set; }
     }
 }

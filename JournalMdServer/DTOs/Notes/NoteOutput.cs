@@ -10,13 +10,13 @@ namespace JournalMdServer.DTOs.Notes
     {
         public long Id { get; set; }
 
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public string Labels { get; set; }
+        public DateTime Date { get; set; }
 
         // Relations
+        // public long NoteTypeId { get; set; }
+        // public NoteTypeOutput NoteType { get; set; }
+
+        // public ICollection<NoteValue> NoteValues { get; set; }
         // public ICollection<NoteValueOutput> Values { get; set; } // TODO
     }
 }
