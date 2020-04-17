@@ -4,15 +4,7 @@ using JournalMdServer.DTOs.NoteTypes;
 using JournalMdServer.DTOs.NoteFields;
 using JournalMdServer.DTOs.Categories;
 using JournalMdServer.DTOs.Tags;
-using JournalMdServer.DTOs.Activities;
-using JournalMdServer.DTOs.BodyMeasurements;
-using JournalMdServer.DTOs.Goals;
-using JournalMdServer.DTOs.Habits;
-using JournalMdServer.DTOs.Journals;
 using JournalMdServer.DTOs.Notes;
-using JournalMdServer.DTOs.Routines;
-using JournalMdServer.DTOs.Tasks;
-using JournalMdServer.DTOs.WeightMeasurements;
 
 namespace JournalMdServer.Models
 {

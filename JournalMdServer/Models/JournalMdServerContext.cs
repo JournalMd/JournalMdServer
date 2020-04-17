@@ -55,35 +55,20 @@ namespace JournalMdServer.Models
                 new User { Id = 2, PasswordHash = PasswordHash, PasswordSalt = PasswordSalt, Username = "2" }
             );
 
-            /*
-             *   const noteTypes: any[] = [ // + noteFields // TODO strongly type
-                    { id: 1, order: 1, name: 'note', title: 'Note', description: 'Write a simple note.', owner: null, key: 'note', fields: [] },
-                    { id: 2, order: 2, name: 'task', title: 'Task', description: 'A task you must complete.', owner: null, key: 'task', fields: [
-                      { id: 1, order: 1, name: 'completed', title: 'Completed', description: 'Is it done?', type: 'boolean', showInViews: true },
-                      { id: 5, order: 2, name: 'due', title: 'Due', description: 'When is it due?', type: 'date', showInViews: true },
-                    ] },
-                    { id: 3, order: 3, name: 'goal', title: 'Goal', description: 'A goal you want to achieve.', owner: null, key: 'goal', fields: [
-                      { id: 2, order: 1, name: 'achieved', title: 'Achieved', description: 'Did you make it?', type: 'boolean', showInViews: true },
-                    ] },
-                    { id: 4, order: 4, name: 'journal', title: 'Journal', description: 'Summarize your day or write down your thoughts.', owner: null, key: 'journal', fields: [] },
-                    { id: 5, order: 5, name: 'activity', title: 'Activity', description: 'Something you\'ve done.', owner: null, key: 'activity', fields: [] },
-                    { id: 6, order: 6, name: 'habit', title: 'Habit', description: 'Record your habits.', owner: null, key: 'habit', fields: [] },
-                    { id: 7, order: 7, name: 'routine', title: 'Routine', description: 'Write down what you want to do every day.', owner: null, key: 'routine', fields: [] },
-                    { id: 8, order: 8, name: 'weight', title: 'Weight', description: 'Track your weight.', owner: null, key: 'weight', fields: [
-                      { id: 3, order: 1, name: 'height', title: 'Height', description: 'Your height in cm.', type: 'number', showInViews: false },
-                      { id: 4, order: 2, name: 'weight', title: 'Weight', description: 'Your weight in kg.', type: 'number', showInViews: true },
-                    ] },
-                    */
-
             modelBuilder.Entity<NoteType>().HasData(
-                new NoteType { Id = 1, Order = 1, Name = "note", Title = "Note", Description = "Write a simple note." },
-                new NoteType { Id = 2, Order = 2, Name = "task", Title = "Task", Description = "A task you must complete." },
-                new NoteType { Id = 3, Order = 3, Name = "goal", Title = "Goal", Description = "A goal you want to achieve." },
-                new NoteType { Id = 4, Order = 4, Name = "journal", Title = "Journal", Description = "Summarize your day or write down your thoughts." },
+                new NoteType { Id = 1, Order = 1, Name = "journal", Title = "Journal", Description = "Summarize your day or write down your thoughts." },
+                new NoteType { Id = 2, Order = 2, Name = "note", Title = "Note", Description = "Write a simple note." },
+                new NoteType { Id = 3, Order = 3, Name = "task", Title = "Task", Description = "A task you must complete." },
+//                      { id: 1, order: 1, name: 'completed', title: 'Completed', description: 'Is it done?', type: 'boolean', showInViews: true },
+//                      { id: 5, order: 2, name: 'due', title: 'Due', description: 'When is it due?', type: 'date', showInViews: true },
+                new NoteType { Id = 4, Order = 4, Name = "goal", Title = "Goal", Description = "A goal you want to achieve." },
+//                      { id: 2, order: 1, name: 'achieved', title: 'Achieved', description: 'Did you make it?', type: 'boolean', showInViews: true },
                 new NoteType { Id = 5, Order = 5, Name = "activity", Title = "Activity", Description = "Something you've done." },
                 new NoteType { Id = 6, Order = 6, Name = "habit", Title = "Habit", Description = "Record your habits." },
                 new NoteType { Id = 7, Order = 7, Name = "routine", Title = "Routine", Description = "Write down what you want to do every day." },
                 new NoteType { Id = 8, Order = 8, Name = "weightmeasurement", Title = "Weight Measurement", Description = "Track your weight." },
+//                      { id: 3, order: 1, name: 'height', title: 'Height', description: 'Your height in cm.', type: 'number', showInViews: false },
+//                      { id: 4, order: 2, name: 'weight', title: 'Weight', description: 'Your weight in kg.', type: 'number', showInViews: true },
                 new NoteType { Id = 9, Order = 9, Name = "bodymeasurement", Title = "Body Measurement", Description = "Track your body measurements." }
             );
 

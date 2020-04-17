@@ -151,14 +151,7 @@ namespace JournalMdServer
             services.AddScoped<NoteFieldsService>();
             services.AddScoped<TagsService>();
             services.AddScoped<CategoriesService>();
-            services.AddScoped<BodyMeasurementsService>();
-            services.AddScoped<GoalsService>();
-            services.AddScoped<HabitsService>();
-            services.AddScoped<JournalsService>();
             services.AddScoped<NotesService>();
-            services.AddScoped<RoutinesService>();
-            services.AddScoped<TasksService>();
-            services.AddScoped<WeightMeasurementsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
