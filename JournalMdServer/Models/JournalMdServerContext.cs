@@ -167,12 +167,12 @@ namespace JournalMdServer.Models
             // tags
 
             modelBuilder.Entity<Note>().HasData(
-                new Note { Id = 1, Title = "Bla 1.1", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 2, Title = "Bla 1.2", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 3, Title = "Bla 1.3", UserId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 1, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 2, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 3, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
 
-                new Note { Id = 4, Title = "Bla 2.1", UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 5, Title = "Bla 2.2", UserId = 2, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+                new Note { Id = 4, UserId = 2, NoteTypeId = 1, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 5, UserId = 2, NoteTypeId = 1, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
             );
         }
     }
