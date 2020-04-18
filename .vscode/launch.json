@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/JournalMdServer/bin/Debug/netcoreapp3.1/JournalMdServer.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.1/JournalMdServer.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/JournalMdServer",
+            "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
