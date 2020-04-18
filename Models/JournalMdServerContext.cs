@@ -130,6 +130,12 @@ namespace JournalMdServer.Models
                 new NoteField { Id = 51, NoteTypeId = 9, Order = 12, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" }
             );
 
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "weekday", Title = "Weekday" },
+                new Category { Id = 2, Name = "weekday_monday", Title = "Monday", ParentCategoryId = 1 }
+            );
+
             // LABELS )=> category
             /*
                 *   const labels: any[] = [ // TODO strongly type

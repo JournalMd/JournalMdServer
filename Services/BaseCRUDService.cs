@@ -17,8 +17,8 @@ namespace JournalMdServer.Services
 {
     public class BaseCRUDService<TEntity, INP, OUTP> : IBaseCRUDService<INP, OUTP> where TEntity : BaseAuditEntity
     {
-        private readonly IRepository<TEntity> _repository;
-        private readonly IMapper _mapper;
+        protected readonly IRepository<TEntity> _repository;
+        protected readonly IMapper _mapper;
         
         public BaseCRUDService(IRepository<TEntity> repository, IMapper mapper)
         {
@@ -26,7 +26,7 @@ namespace JournalMdServer.Services
             _mapper = mapper;
         }
 
-        public async Task<ActionResult<IEnumerable<OUTP>>> GetAll(long userId)
+        public virtual async Task<ActionResult<IEnumerable<OUTP>>> GetAll(long userId)
         {
             var entities = await _repository.Query.Where(m => m.UserId == userId).ToListAsync();
             return _mapper.Map<List<OUTP>>(entities);
@@ -34,13 +34,13 @@ namespace JournalMdServer.Services
             //return _mapper.Map<PagedResult<NoteOutput>>(notes);
         }
 
-        public async Task<OUTP> GetById(long id, long userId)
+        public virtual async Task<OUTP> GetById(long id, long userId)
         {
             var entitie = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
             return _mapper.Map<OUTP>(entitie);
         }
 
-        public async Task<OUTP> Create(INP inputModel, long userId)
+        public virtual async Task<OUTP> Create(INP inputModel, long userId)
         {
             var entry = _mapper.Map<TEntity>(inputModel);
             entry.UserId = userId;
@@ -55,7 +55,7 @@ namespace JournalMdServer.Services
             return _mapper.Map<OUTP>(entry);
         }
 
-        public async Task Update(long id, INP inputModel, long userId)
+        public virtual async Task Update(long id, INP inputModel, long userId)
         {
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
@@ -68,7 +68,7 @@ namespace JournalMdServer.Services
             await _repository.Context.SaveChangesAsync();
         }
 
-        public async Task<long?> Delete(long id, long userId)
+        public virtual async Task<long?> Delete(long id, long userId)
         {
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 

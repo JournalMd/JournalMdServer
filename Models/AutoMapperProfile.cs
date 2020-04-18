@@ -22,7 +22,8 @@ namespace JournalMdServer.Models
             CreateMap<NoteType, NoteTypeOutput>();
 
             // NoteFields
-            CreateMap<NoteField, NoteFieldOutput> ();
+            CreateMap<NoteField, NoteFieldOutput>()
+                .ForMember(ign => ign.NoteType, opt => opt.Ignore()); // Ignore NoteType as NoteTypes Service will load this with include causing an object cycle
 
             // Categories
             CreateMap<Category, CategoryOutput>();

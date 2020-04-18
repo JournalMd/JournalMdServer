@@ -20,6 +20,6 @@ namespace JournalMdServer.DTOs.NoteTypes
         public string Description { get; set; }
 
         // Relations
-        public ICollection<NoteFieldOutput> Fields { get; set; } // TODO
+        public ICollection<NoteFieldOutput> NoteFields { get; set; }
     }
 }

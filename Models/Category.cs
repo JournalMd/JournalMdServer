@@ -12,7 +12,7 @@ namespace JournalMdServer.Models
         public string Title { get; set; }
 
         // Relations
-        public long ParentCategoryId { get; set; }
+        public long? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
 
         // owner - might be possible in the future

@@ -31,6 +31,6 @@ namespace JournalMdServer.Models
         // Relations
         public ICollection<Tag> Tags { get; set; }
         public ICollection<Note> Notes { get; set; }
-        public ICollection<NoteValue> NoteValues { get; set; }
+        // public ICollection<NoteValue> NoteValues { get; set; } // Only access by Notes
     }
 }

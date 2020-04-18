@@ -17,7 +17,7 @@ namespace JournalMdServer.Interfaces
 {
     public interface IBaseRService<OUTP>
     {
-        public Task<ActionResult<IEnumerable<OUTP>>> GetAll(long userId);
-        public Task<OUTP> GetById(long id, long userId);
+        public Task<ActionResult<IEnumerable<OUTP>>> GetAll();
+        public Task<OUTP> GetById(long id);
     }
 }

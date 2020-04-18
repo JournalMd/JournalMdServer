@@ -19,7 +19,7 @@ namespace JournalMdServer.Models
         public string Description { get; set; }
 
         // Relations
-        public ICollection<NoteField> Fields { get; set; }
+        public ICollection<NoteField> NoteFields { get; set; }
 
         // owner - might be possible in the future
     }

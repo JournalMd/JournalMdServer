@@ -11,6 +11,8 @@ namespace JournalMdServer.Services
         {
         }
 
+        // TODO do we need this right now - NodeTypes will include fields anyway...
+
         // Intentionally left empty
     }
 }

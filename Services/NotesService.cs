@@ -12,5 +12,58 @@ namespace JournalMdServer.Services
         }
 
         // Intentionally left empty
+
+        // TODO Rules Parser
+        // TODO Calculator
+
+        // TODO move this code to calculator
+        /*
+
+        /// <summary>	
+        /// Calculated	
+        /// https://de.wikipedia.org/wiki/Body-Mass-Index	
+        /// </summary>	
+        public double? BodyMassIndex	
+        {	
+            get	
+            {	
+                if (Weight <= 0 || Height <= 0)	
+                    return null;	
+
+                return Weight / (Height * Height) * 10000.0;	
+            }	
+        }	
+
+        /// <summary>	
+        /// Calculated	
+        /// https://de.wikipedia.org/wiki/Ponderal-Index	
+        /// </summary>	
+        public double? PonderalIndex	
+        {	
+            get	
+            {	
+                if (Weight <= 0 || Height <= 0)	
+                    return null;	
+
+                return Weight / (Height * Height * Height) * 1000000.0;	
+            }	
+        }	
+    
+        /// <summary>	
+        /// Calculated	
+        /// https://en.wikipedia.org/wiki/Waist%E2%80%93hip_ratio	
+        /// https://de.wikipedia.org/wiki/Taille-H%C3%BCft-Verh%C3%A4ltnis	
+        /// </summary>	
+        public double? WaistToHipRatio	
+        {  	
+            get	
+            {	
+                if (Waist == null || Hips == null || Waist <= 0 || Hips <= 0)	
+                    return null;	
+
+                return Waist / Hips;	
+            } 	
+        }    
+        */
     }
 }

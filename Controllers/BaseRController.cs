@@ -33,14 +33,14 @@ namespace JournalMdServer.Controllers
         [HttpGet]
         public virtual async Task<ActionResult<IEnumerable<OUTP>>> GetAll()
         {
-            return Ok(await _service.GetAll(this.GetAuthenticatedId()));
+            return Ok(await _service.GetAll(/* NO USER this.GetAuthenticatedId() */));
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OUTP>> GetById(long id)
         {
-            var note = await _service.GetById(id, this.GetAuthenticatedId());
+            var note = await _service.GetById(id /* NO USER this.GetAuthenticatedId() */);
 
             if (note == null)
                 return NotFound();
