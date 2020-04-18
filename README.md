@@ -4,22 +4,35 @@
 
 * dotnet sdk (3.1)
 
+## Run the server
+
+```sh
+dotnet run
+```
+
 ## Development
+
+For Visual Studio Code the `launch.json` is already set up.
+
+### Install postman for API testing
 
 ```sh
 sudo snap install postman
+```
 
+### Code geneator
+
+```sh
 dotnet tool install --global dotnet-aspnet-codegenerator
-
 ```
 
 ```sh
-dotnet aspnet-codegenerator controller -name NewNameController -async -api -m NewNameModel -dc DayLifeServerContext -outDir Controllers
+dotnet aspnet-codegenerator controller -name NewNameController -async -api -m NewNameModel -dc JournalMdServerContext -outDir Controllers
 # or on error:
-~/.dotnet/tools/dotnet-aspnet-codegenerator controller -name NewNameController -async -api -m NewNameModel -dc DayLifeServerContext -outDir Controllers
+~/.dotnet/tools/dotnet-aspnet-codegenerator controller -name NewNameController -async -api -m NewNameModel -dc JournalMdServerContext -outDir Controllers
 ```
 
-## DB
+### DB
 
 ```
 dotnet ef database update
