@@ -1,5 +1,6 @@
 ﻿using JournalMdServer.Interfaces.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace JournalMdServer.Models
 {
@@ -10,5 +11,8 @@ namespace JournalMdServer.Models
 
         [Required]
         public string Title { get; set; }
+
+        // Relations
+        public ICollection<NoteValueTag> NoteValueTags { get; set; }
     }
 }

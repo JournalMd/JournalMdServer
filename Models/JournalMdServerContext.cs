@@ -48,6 +48,33 @@ namespace JournalMdServer.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key
+            modelBuilder.Entity<NoteValueTag>()
+                .HasKey(t => new { t.NoteValueId, t.TagId });
+
+            modelBuilder.Entity<NoteValueTag>()
+                .HasOne(pt => pt.NoteValue)
+                .WithMany(p => p.NoteValueTags)
+                .HasForeignKey(pt => pt.NoteValueId);
+
+            modelBuilder.Entity<NoteValueTag>()
+                .HasOne(pt => pt.Tag)
+                .WithMany(t => t.NoteValueTags)
+                .HasForeignKey(pt => pt.TagId);
+
+            modelBuilder.Entity<NoteValueCategory>()
+                .HasKey(t => new { t.NoteValueId, t.CategoryId });
+
+            modelBuilder.Entity<NoteValueCategory>()
+                .HasOne(pt => pt.NoteValue)
+                .WithMany(p => p.NoteValueCategories)
+                .HasForeignKey(pt => pt.NoteValueId);
+
+            modelBuilder.Entity<NoteValueCategory>()
+                .HasOne(pt => pt.Category)
+                .WithMany(t => t.NoteValueCategory)
+                .HasForeignKey(pt => pt.CategoryId);
+
             Services.UsersService.CreatePasswordHash("12345678", out byte[] PasswordHash, out byte[] PasswordSalt);
 
             modelBuilder.Entity<User>().HasData(
@@ -164,12 +191,12 @@ namespace JournalMdServer.Models
             );
 
             modelBuilder.Entity<Note>().HasData(
-                new Note { Id = 1, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 2, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 3, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 1, UserId = 1, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Journal
+                new Note { Id = 2, UserId = 1, NoteTypeId = 3, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Task
+                new Note { Id = 3, UserId = 1, NoteTypeId = 8, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Weight Measurement
 
-                new Note { Id = 4, UserId = 2, NoteTypeId = 1, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 5, UserId = 2, NoteTypeId = 1, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+                new Note { Id = 4, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Journal
+                new Note { Id = 5, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // Journal
             );
         }
     }

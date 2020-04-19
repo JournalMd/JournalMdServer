@@ -1,5 +1,6 @@
 ﻿using JournalMdServer.Interfaces.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace JournalMdServer.Models
 {
@@ -14,6 +15,8 @@ namespace JournalMdServer.Models
         // Relations
         public long? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
+
+        public ICollection<NoteValueCategory> NoteValueCategory { get; set; }
 
         // owner - might be possible in the future
     }
