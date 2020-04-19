@@ -18,6 +18,9 @@ namespace JournalMdServer.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
+        public bool NoteDescriptionShort { get; set; }
+
         // Relations
         public ICollection<NoteField> NoteFields { get; set; }
 

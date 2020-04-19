@@ -8,6 +8,15 @@ namespace JournalMdServer.Models
     public class Note : BaseAuditEntity, IBaseModel
     {
         [Required]
+        public string Title { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
+        [Required]
+        public int Mood { get; set; }
+
+        [Required]
         public DateTime Date { get; set; }
 
         // Relations

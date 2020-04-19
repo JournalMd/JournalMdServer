@@ -19,6 +19,8 @@ namespace JournalMdServer.DTOs.NoteTypes
 
         public string Description { get; set; }
 
+        public bool NoteDescriptionShort { get; set; }
+
         // Relations
         public ICollection<NoteFieldOutput> NoteFields { get; set; }
     }
