@@ -51,7 +51,7 @@ namespace JournalMdServer.Models
             Services.UsersService.CreatePasswordHash("12345678", out byte[] PasswordHash, out byte[] PasswordSalt);
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, PasswordHash = PasswordHash, PasswordSalt = PasswordSalt, Username = "1", FirstName = "Max", LastName = "Mustermann" },
+                new User { Id = 1, PasswordHash = PasswordHash, PasswordSalt = PasswordSalt, Username = "1", FirstName = "Max", LastName = "Power" },
                 new User { Id = 2, PasswordHash = PasswordHash, PasswordSalt = PasswordSalt, Username = "2" }
             );
 
@@ -130,47 +130,38 @@ namespace JournalMdServer.Models
                 new NoteField { Id = 51, NoteTypeId = 9, Order = 12, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" }
             );
 
-
             modelBuilder.Entity<Category>().HasData(
+                // Weekday
                 new Category { Id = 1, Name = "weekday", Title = "Weekday" },
-                new Category { Id = 2, Name = "weekday_monday", Title = "Monday", ParentCategoryId = 1 }
+                new Category { Id = 2, Name = "weekday_monday", Title = "Monday", ParentCategoryId = 1 },
+                new Category { Id = 3, Name = "weekday_tuesday", Title = "Tuesday", ParentCategoryId = 1 },
+                new Category { Id = 4, Name = "weekday_wednesday", Title = "Wednesday", ParentCategoryId = 1 },
+                new Category { Id = 5, Name = "weekday_thursday", Title = "Thursday", ParentCategoryId = 1 },
+                new Category { Id = 6, Name = "weekday_friday", Title = "Friday", ParentCategoryId = 1 },
+                new Category { Id = 7, Name = "weekday_saturday", Title = "Saturday", ParentCategoryId = 1 },
+                new Category { Id = 8, Name = "weekday_sunday", Title = "Sunday", ParentCategoryId = 1 },
+                // Time
+                new Category { Id = 9, Name = "time", Title = "Time" },
+                new Category { Id = 10, Name = "time_today", Title = "Today", ParentCategoryId = 9 },
+                new Category { Id = 11, Name = "time_week", Title = "Week", ParentCategoryId = 9 },
+                new Category { Id = 12, Name = "time_month", Title = "Month", ParentCategoryId = 9 },
+                new Category { Id = 13, Name = "time_year", Title = "Year", ParentCategoryId = 9 },
+                new Category { Id = 14, Name = "time_life", Title = "Life", ParentCategoryId = 9 },
+                // Categorie
+                new Category { Id = 15, Name = "category", Title = "Category" },
+                new Category { Id = 16, Name = "category_quote", Title = "Quote", ParentCategoryId = 15 },
+                new Category { Id = 17, Name = "category_shoppinglist", Title = "Shopping List", ParentCategoryId = 15 },
+                // Activity
+                new Category { Id = 18, Name = "activity", Title = "Activity" },
+                new Category { Id = 19, Name = "activity_weighttraining", Title = "Weight training", ParentCategoryId = 18 },
+                new Category { Id = 20, Name = "activity_running", Title = "Running", ParentCategoryId = 18 },
+                new Category { Id = 21, Name = "activity_dancing", Title = "Dancing", ParentCategoryId = 18 }
             );
 
-            // LABELS )=> category
-            /*
-                *   const labels: any[] = [ // TODO strongly type
-            // Auto Tagger weekday
-            { id: 1, category: 'weekday', name: 'weekday_monday', title: 'Monday', owner: null, parent: null },
-            { id: 2, category: 'weekday', name: 'weekday_tuesday', title: 'Tuesday', owner: null, parent: null },
-            { id: 3, category: 'weekday', name: 'weekday_wednesday', title: 'Wednesday', owner: null, parent: null },
-            { id: 4, category: 'weekday', name: 'weekday_thursday', title: 'Thursday', owner: null, parent: null },
-            { id: 5, category: 'weekday', name: 'weekday_friday', title: 'Friday', owner: null, parent: null },
-            { id: 6, category: 'weekday', name: 'weekday_saturday', title: 'Saturday', owner: null, parent: null },
-            { id: 7, category: 'weekday', name: 'weekday_sunday', title: 'Sunday', owner: null, parent: null },
-            // Auto Tagger time
-            { id: 8, category: 'time', name: 'time_today', title: 'Today', owner: null, parent: null },
-            { id: 9, category: 'time', name: 'time_week', title: 'Week', owner: null, parent: null },
-            { id: 10, category: 'time', name: 'time_month', title: 'Month', owner: null, parent: null },
-            { id: 11, category: 'time', name: 'time_year', title: 'Year', owner: null, parent: null },
-            { id: 12, category: 'time', name: 'time_life', title: 'Life', owner: null, parent: null },
-            // categorie
-            { id: 13, category: 'categorie', name: 'categorie_quote', title: 'Quote', owner: null, parent: null },
-            { id: 14, category: 'categorie', name: 'categorie_shopping_list', title: 'Shopping_list', owner: null, parent: null },
-            { id: 15, category: 'categorie', name: 'categorie_xxx', title: 'xxx', owner: null, parent: null },
-            { id: 16, category: 'categorie', name: 'categorie_yyy', title: 'yyy', owner: null, parent: null },
-            { id: 17, category: 'categorie', name: 'categorie_zzz', title: 'zzz', owner: null, parent: null },
-            // activity
-            { id: 18, category: 'activity', name: 'activity_weight_training', title: 'Weight_training', owner: null, parent: null },
-            { id: 19, category: 'activity', name: 'activity_running', title: 'Running', owner: null, parent: null },
-            { id: 20, category: 'activity', name: 'activity_dancing', title: 'Dancing', owner: null, parent: null },
-            // user
-            { id: 21, category: 'categorie', name: 'user_user_a', title: 'User_a', owner: 1, parent: null },
-            { id: 22, category: 'categorie', name: 'user_user_b', title: 'User_b', owner: 1, parent: null },
-            { id: 23, category: 'categorie', name: 'user_user_c', title: 'User_c', owner: 1, parent: null },
-            ];
-            */
-
-            // tags
+            modelBuilder.Entity<Tag>().HasData(
+                new Tag { Id = 1, UserId = 1, Name = "happy", Title = "Happy", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Tag { Id = 2, UserId = 2, Name = "fun", Title = "Fun", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+            );
 
             modelBuilder.Entity<Note>().HasData(
                 new Note { Id = 1, UserId = 1, NoteTypeId = 1, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
