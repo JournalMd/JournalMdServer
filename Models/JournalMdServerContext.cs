@@ -49,30 +49,30 @@ namespace JournalMdServer.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key
-            modelBuilder.Entity<NoteValueTag>()
-                .HasKey(t => new { t.NoteValueId, t.TagId });
+            modelBuilder.Entity<NoteTag>()
+                .HasKey(t => new { t.NoteId, t.TagId });
 
-            modelBuilder.Entity<NoteValueTag>()
-                .HasOne(pt => pt.NoteValue)
-                .WithMany(p => p.NoteValueTags)
-                .HasForeignKey(pt => pt.NoteValueId);
+            modelBuilder.Entity<NoteTag>()
+                .HasOne(pt => pt.Note)
+                .WithMany(p => p.NoteTags)
+                .HasForeignKey(pt => pt.NoteId);
 
-            modelBuilder.Entity<NoteValueTag>()
+            modelBuilder.Entity<NoteTag>()
                 .HasOne(pt => pt.Tag)
-                .WithMany(t => t.NoteValueTags)
+                .WithMany(t => t.NoteTags)
                 .HasForeignKey(pt => pt.TagId);
 
-            modelBuilder.Entity<NoteValueCategory>()
-                .HasKey(t => new { t.NoteValueId, t.CategoryId });
+            modelBuilder.Entity<NoteCategory>()
+                .HasKey(t => new { t.NoteId, t.CategoryId });
 
-            modelBuilder.Entity<NoteValueCategory>()
-                .HasOne(pt => pt.NoteValue)
-                .WithMany(p => p.NoteValueCategories)
-                .HasForeignKey(pt => pt.NoteValueId);
+            modelBuilder.Entity<NoteCategory>()
+                .HasOne(pt => pt.Note)
+                .WithMany(p => p.NoteCategories)
+                .HasForeignKey(pt => pt.NoteId);
 
-            modelBuilder.Entity<NoteValueCategory>()
+            modelBuilder.Entity<NoteCategory>()
                 .HasOne(pt => pt.Category)
-                .WithMany(t => t.NoteValueCategory)
+                .WithMany(t => t.NoteCategories)
                 .HasForeignKey(pt => pt.CategoryId);
 
             Services.UsersService.CreatePasswordHash("12345678", out byte[] PasswordHash, out byte[] PasswordSalt);
@@ -95,66 +95,53 @@ namespace JournalMdServer.Models
             );
 
             modelBuilder.Entity<NoteField>().HasData(
-                // Journal (No Category - Journal should cover everything in a day)
+                // Journal
                 new NoteField { Id = 1, NoteTypeId = 1, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
                 new NoteField { Id = 2, NoteTypeId = 1, Order = 2, Name = "description", Title = "Description", Description = "", Required = true, Rules = "", Type = "markdown" },
                 new NoteField { Id = 3, NoteTypeId = 1, Order = 3, Name = "mood", Title = "Mood", Description = "", Required = true, Rules = "", Type = "mood" },
-                new NoteField { Id = 4, NoteTypeId = 1, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
                 // Note
-                new NoteField { Id = 5, NoteTypeId = 2, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 6, NoteTypeId = 2, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 7, NoteTypeId = 2, Order = 3, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 8, NoteTypeId = 2, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 4, NoteTypeId = 2, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 5, NoteTypeId = 2, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
                 // Task
-                new NoteField { Id = 9, NoteTypeId = 3, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 10, NoteTypeId = 3, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 11, NoteTypeId = 3, Order = 3, Name = "completed", Title = "Completed", Description = "Is it done?", Required = true, Rules = "", Type = "boolean" },
-                new NoteField { Id = 12, NoteTypeId = 3, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
-                new NoteField { Id = 13, NoteTypeId = 3, Order = 5, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 14, NoteTypeId = 3, Order = 6, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 6, NoteTypeId = 3, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 7, NoteTypeId = 3, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 8, NoteTypeId = 3, Order = 3, Name = "completed", Title = "Completed", Description = "Is it done?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 9, NoteTypeId = 3, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
                 // Goal
-                new NoteField { Id = 15, NoteTypeId = 4, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 16, NoteTypeId = 4, Order = 2, Name = "description", Title = "", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 17, NoteTypeId = 4, Order = 3, Name = "achieved", Title = "Completed", Description = "Did you make it?", Required = true, Rules = "", Type = "boolean" },
-                new NoteField { Id = 18, NoteTypeId = 4, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
-                new NoteField { Id = 19, NoteTypeId = 4, Order = 5, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 20, NoteTypeId = 4, Order = 6, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 10, NoteTypeId = 4, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 11, NoteTypeId = 4, Order = 2, Name = "description", Title = "", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 12, NoteTypeId = 4, Order = 3, Name = "achieved", Title = "Completed", Description = "Did you make it?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 13, NoteTypeId = 4, Order = 4, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
                 // Activity
-                new NoteField { Id = 21, NoteTypeId = 5, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 22, NoteTypeId = 5, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 23, NoteTypeId = 5, Order = 3, Name = "mood", Title = "Mood", Description = "", Required = true, Rules = "", Type = "mood" },
-                new NoteField { Id = 24, NoteTypeId = 5, Order = 4, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 25, NoteTypeId = 5, Order = 5, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 14, NoteTypeId = 5, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 15, NoteTypeId = 5, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
+                new NoteField { Id = 16, NoteTypeId = 5, Order = 3, Name = "mood", Title = "Mood", Description = "", Required = true, Rules = "", Type = "mood" },
                 // Habit
-                new NoteField { Id = 26, NoteTypeId = 6, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 27, NoteTypeId = 6, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 28, NoteTypeId = 6, Order = 3, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 29, NoteTypeId = 6, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 17, NoteTypeId = 6, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 18, NoteTypeId = 6, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
                 // Routine
-                new NoteField { Id = 30, NoteTypeId = 7, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
-                new NoteField { Id = 31, NoteTypeId = 7, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
-                new NoteField { Id = 32, NoteTypeId = 7, Order = 3, Name = "categories", Title = "Categories", Description = "", Required = false, Rules = "", Type = "categories" },
-                new NoteField { Id = 33, NoteTypeId = 7, Order = 4, Name = "tags", Title = "Tags", Description = "", Required = false, Rules = "", Type = "tags" },
+                new NoteField { Id = 19, NoteTypeId = 7, Order = 1, Name = "title", Title = "Title", Description = "", Required = true, Rules = "", Type = "text" },
+                new NoteField { Id = 20, NoteTypeId = 7, Order = 2, Name = "description", Title = "Description", Description = "", Required = false, Rules = "", Type = "markdown" },
                 // Weightmeasurement (no title)
-                new NoteField { Id = 34, NoteTypeId = 8, Order = 1, Name = "shortdescription", Title = "Short Description", Description = "", Required = false, Rules = "", Type = "markdownsingle" },
-                new NoteField { Id = 35, NoteTypeId = 8, Order = 2, Name = "weight", Title = "Weight", Description = "Your weight in kg.", Required = true, Rules = "", Type = "number" },
-                new NoteField { Id = 36, NoteTypeId = 8, Order = 3, Name = "height", Title = "Height", Description = "Your height in cm.", Required = true, Rules = "default=previous", Type = "number" },
-                new NoteField { Id = 37, NoteTypeId = 8, Order = 4, Name = "goalweight", Title = "Goal Weight", Description = "", Required = false, Rules = "default=previous", Type = "number" },
-                new NoteField { Id = 38, NoteTypeId = 8, Order = 5, Name = "bodymassindex", Title = "Body-Mass-Index", Description = "", Required = false, Rules = "calculation=bodymassindex", Type = "calculated" },
-                new NoteField { Id = 39, NoteTypeId = 8, Order = 6, Name = "ponderalindex", Title = "Ponderal-Index", Description = "", Required = false, Rules = "calculation=ponderalindex", Type = "calculated" },
+                new NoteField { Id = 21, NoteTypeId = 8, Order = 1, Name = "shortdescription", Title = "Short Description", Description = "", Required = false, Rules = "", Type = "markdownsingle" },
+                new NoteField { Id = 22, NoteTypeId = 8, Order = 2, Name = "weight", Title = "Weight", Description = "Your weight in kg.", Required = true, Rules = "", Type = "number" },
+                new NoteField { Id = 23, NoteTypeId = 8, Order = 3, Name = "height", Title = "Height", Description = "Your height in cm.", Required = true, Rules = "default=previous", Type = "number" },
+                new NoteField { Id = 24, NoteTypeId = 8, Order = 4, Name = "goalweight", Title = "Goal Weight", Description = "", Required = false, Rules = "default=previous", Type = "number" },
+                new NoteField { Id = 25, NoteTypeId = 8, Order = 5, Name = "bodymassindex", Title = "Body-Mass-Index", Description = "", Required = false, Rules = "calculation=bodymassindex", Type = "calculated" },
+                new NoteField { Id = 26, NoteTypeId = 8, Order = 6, Name = "ponderalindex", Title = "Ponderal-Index", Description = "", Required = false, Rules = "calculation=ponderalindex", Type = "calculated" },
                 // Bodymeasurement (no title)
-                new NoteField { Id = 40, NoteTypeId = 9, Order = 1, Name = "shortdescription", Title = "Short Description", Description = "", Required = false, Rules = "", Type = "markdownsingle" },
-                new NoteField { Id = 41, NoteTypeId = 9, Order = 2, Name = "chest", Title = "Chest", Description = "", Required = false, Rules = "", Type = "number" }, // Brustumfang
-                new NoteField { Id = 42, NoteTypeId = 9, Order = 3, Name = "waist", Title = "Waist", Description = "", Required = true, Rules = "", Type = "number" }, // Taillenumfang
-                new NoteField { Id = 43, NoteTypeId = 9, Order = 4, Name = "hips", Title = "Hips", Description = "", Required = true, Rules = "", Type = "number" }, // Hüftumfang
-                new NoteField { Id = 44, NoteTypeId = 9, Order = 5, Name = "arm", Title = "Arm", Description = "Larger biceps", Required = false, Rules = "", Type = "number" }, // Oberarm/Biceps
-                new NoteField { Id = 45, NoteTypeId = 9, Order = 6, Name = "leg", Title = "Leg", Description = "Larger hamstrings/quadriceps", Required = false, Rules = "", Type = "number" }, // Oberschenkel
-                new NoteField { Id = 46, NoteTypeId = 9, Order = 7, Name = "calf", Title = "Calf", Description = "Larger calf", Required = false, Rules = "", Type = "number" },// Waden
-                new NoteField { Id = 47, NoteTypeId = 9, Order = 8, Name = "bodyfatmass", Title = "Body-Fat-Mass", Description = "", Required = false, Rules = "", Type = "number" }, // Körperfettanteil
-                new NoteField { Id = 48, NoteTypeId = 9, Order = 9, Name = "bodyfatpercentage", Title = "Body-Fat-Percentage", Description = "", Required = false, Rules = "", Type = "number" }, // Body Fat %
-                new NoteField { Id = 49, NoteTypeId = 9, Order = 10, Name = "totalbodywater", Title = "Total-Body-Water", Description = "", Required = false, Rules = "", Type = "number" }, // Wasseranteil
-                new NoteField { Id = 50, NoteTypeId = 9, Order = 11, Name = "musclemass", Title = "Muscle-Mass", Description = "", Required = false, Rules = "", Type = "number" }, // Muskelanteil
-                new NoteField { Id = 51, NoteTypeId = 9, Order = 12, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" }
+                new NoteField { Id = 27, NoteTypeId = 9, Order = 1, Name = "shortdescription", Title = "Short Description", Description = "", Required = false, Rules = "", Type = "markdownsingle" },
+                new NoteField { Id = 28, NoteTypeId = 9, Order = 2, Name = "chest", Title = "Chest", Description = "", Required = false, Rules = "", Type = "number" }, // Brustumfang
+                new NoteField { Id = 29, NoteTypeId = 9, Order = 3, Name = "waist", Title = "Waist", Description = "", Required = true, Rules = "", Type = "number" }, // Taillenumfang
+                new NoteField { Id = 30, NoteTypeId = 9, Order = 4, Name = "hips", Title = "Hips", Description = "", Required = true, Rules = "", Type = "number" }, // Hüftumfang
+                new NoteField { Id = 31, NoteTypeId = 9, Order = 5, Name = "arm", Title = "Arm", Description = "Larger biceps", Required = false, Rules = "", Type = "number" }, // Oberarm/Biceps
+                new NoteField { Id = 32, NoteTypeId = 9, Order = 6, Name = "leg", Title = "Leg", Description = "Larger hamstrings/quadriceps", Required = false, Rules = "", Type = "number" }, // Oberschenkel
+                new NoteField { Id = 33, NoteTypeId = 9, Order = 7, Name = "calf", Title = "Calf", Description = "Larger calf", Required = false, Rules = "", Type = "number" },// Waden
+                new NoteField { Id = 34, NoteTypeId = 9, Order = 8, Name = "bodyfatmass", Title = "Body-Fat-Mass", Description = "", Required = false, Rules = "", Type = "number" }, // Körperfettanteil
+                new NoteField { Id = 35, NoteTypeId = 9, Order = 9, Name = "bodyfatpercentage", Title = "Body-Fat-Percentage", Description = "", Required = false, Rules = "", Type = "number" }, // Body Fat %
+                new NoteField { Id = 36, NoteTypeId = 9, Order = 10, Name = "totalbodywater", Title = "Total-Body-Water", Description = "", Required = false, Rules = "", Type = "number" }, // Wasseranteil
+                new NoteField { Id = 37, NoteTypeId = 9, Order = 11, Name = "musclemass", Title = "Muscle-Mass", Description = "", Required = false, Rules = "", Type = "number" }, // Muskelanteil
+                new NoteField { Id = 38, NoteTypeId = 9, Order = 12, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" }
             );
 
             modelBuilder.Entity<Category>().HasData(
@@ -191,18 +178,33 @@ namespace JournalMdServer.Models
             );
 
             modelBuilder.Entity<Note>().HasData(
+                // User 1 - 3 Notes
                 new Note { Id = 1, UserId = 1, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Journal
                 new Note { Id = 2, UserId = 1, NoteTypeId = 3, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Task
                 new Note { Id = 3, UserId = 1, NoteTypeId = 8, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Weight Measurement
-
+                // User 2 - 1 Note
                 new Note { Id = 4, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // Journal
             );
 
             modelBuilder.Entity<NoteValue>().HasData(
+                // U1 - N1
                 new NoteValue { Id = 1, UserId = 1, NoteId = 1, NoteFieldId = 1, Value = "Test Title", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
                 new NoteValue { Id = 2, UserId = 1, NoteId = 1, NoteFieldId = 2, Value = "**Test** Description\n\n# Test Header", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
                 new NoteValue { Id = 3, UserId = 1, NoteId = 1, NoteFieldId = 3, Value = "5", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 4, UserId = 1, NoteId = 1, NoteFieldId = 4, Value = "", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // tags
+                // U1 - N2
+                new NoteValue { Id = 4, UserId = 1, NoteId = 2, NoteFieldId = 4, Value = "Test Title", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 5, UserId = 1, NoteId = 2, NoteFieldId = 5, Value = "**Test** Description\n\n# Test Header", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                // U1 - N3
+                new NoteValue { Id = 6, UserId = 1, NoteId = 3, NoteFieldId = 21, Value = "Short test description", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 7, UserId = 1, NoteId = 3, NoteFieldId = 22, Value = "80", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 8, UserId = 1, NoteId = 3, NoteFieldId = 23, Value = "180", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 9, UserId = 1, NoteId = 3, NoteFieldId = 24, Value = "78", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 10, UserId = 1, NoteId = 3, NoteFieldId = 25, Value = "24,69", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 11, UserId = 1, NoteId = 3, NoteFieldId = 26, Value = "13,72", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                // U2 - N1
+                new NoteValue { Id = 12, UserId = 2, NoteId = 4, NoteFieldId = 1, Value = "Test Title", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 13, UserId = 2, NoteId = 4, NoteFieldId = 2, Value = "**Test** Description\n\n# Test Header", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 14, UserId = 2, NoteId = 4, NoteFieldId = 3, Value = "5", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
             );
         }
     }

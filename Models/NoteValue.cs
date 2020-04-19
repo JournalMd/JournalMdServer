@@ -15,9 +15,5 @@ namespace JournalMdServer.Models
 
         public long NoteFieldId { get; set; }
         public NoteField NoteField { get; set; }
-
-        public ICollection<NoteValueTag> NoteValueTags { get; set; }
-
-        public ICollection<NoteValueCategory> NoteValueCategories { get; set; }
     }
 }

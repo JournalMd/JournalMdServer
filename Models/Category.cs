@@ -16,7 +16,7 @@ namespace JournalMdServer.Models
         public long? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
 
-        public ICollection<NoteValueCategory> NoteValueCategory { get; set; }
+        public ICollection<NoteCategory> NoteCategories { get; set; }
 
         // owner - might be possible in the future
     }

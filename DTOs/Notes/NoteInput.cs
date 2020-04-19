@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JournalMdServer.DTOs.NoteValues;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace JournalMdServer.DTOs.Notes
         [Required]
         public long NoteTypeId { get; set; }
 
-        // public ICollection<NoteValueOutput> NoteValues { get; set; } // TODO
+        public ICollection<NoteValueInput> NoteValues { get; set; }
+
+        //TODO Tag Category
     }
 }

@@ -16,5 +16,9 @@ namespace JournalMdServer.Models
         public NoteType NoteType { get; set; }
 
         public ICollection<NoteValue> NoteValues { get; set; }
+
+        public ICollection<NoteTag> NoteTags { get; set; }
+
+        public ICollection<NoteCategory> NoteCategories { get; set; }
     }
 }

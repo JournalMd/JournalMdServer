@@ -17,5 +17,7 @@ namespace JournalMdServer.DTOs.Notes
         public long NoteTypeId { get; set; }
         
         public ICollection<NoteValueOutput> NoteValues { get; set; }
+
+        //TODO Tag Category
     }
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 namespace JournalMdServer.Models
 {
     /// <summary>
-    /// Solve Many-to-many relationships NoteValue - Category
+    /// Solve Many-to-many relationships Note - Category
     /// </summary>
-    public class NoteValueCategory
+    public class NoteCategory
     {
-        public long NoteValueId { get; set; }
-        public NoteValue NoteValue { get; set; }
+        public long NoteId { get; set; }
+        public Note Note { get; set; }
 
         public long CategoryId { get; set; }
         public Category Category { get; set; }

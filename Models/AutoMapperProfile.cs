@@ -38,7 +38,7 @@ namespace JournalMdServer.Models
             CreateMap<Note, NoteOutput>();
 
             // NoteValues
-            // CreateMap<NoteValueInput, NoteValue>();
+            CreateMap<NoteValueInput, NoteValue>();
             CreateMap<NoteValue, NoteValueOutput>();
         }
     }

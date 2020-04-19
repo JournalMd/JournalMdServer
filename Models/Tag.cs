@@ -13,6 +13,6 @@ namespace JournalMdServer.Models
         public string Title { get; set; }
 
         // Relations
-        public ICollection<NoteValueTag> NoteValueTags { get; set; }
+        public ICollection<NoteTag> NoteTags { get; set; }
     }
 }
