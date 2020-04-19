@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JournalMdServer.DTOs.NoteValues;
 using JournalMdServer.Interfaces.DTOs;
 
 namespace JournalMdServer.DTOs.Notes
@@ -15,6 +16,6 @@ namespace JournalMdServer.DTOs.Notes
         // Relations
         public long NoteTypeId { get; set; }
         
-        // public ICollection<NoteValueOutput> NoteValues { get; set; } // TODO
+        public ICollection<NoteValueOutput> NoteValues { get; set; }
     }
 }

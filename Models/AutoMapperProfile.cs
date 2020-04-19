@@ -5,6 +5,7 @@ using JournalMdServer.DTOs.NoteFields;
 using JournalMdServer.DTOs.Categories;
 using JournalMdServer.DTOs.Tags;
 using JournalMdServer.DTOs.Notes;
+using JournalMdServer.DTOs.NoteValues;
 
 namespace JournalMdServer.Models
 {
@@ -35,6 +36,10 @@ namespace JournalMdServer.Models
             // Notes
             CreateMap<NoteInput, Note>();
             CreateMap<Note, NoteOutput>();
+
+            // NoteValues
+            // CreateMap<NoteValueInput, NoteValue>();
+            CreateMap<NoteValue, NoteValueOutput>();
         }
     }
 }

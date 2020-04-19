@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using JournalMdServer.Models;
 using JournalMdServer.Interfaces;
 using JournalMdServer.DTOs.Notes;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using AutoMapper;
 
 namespace JournalMdServer.Services
@@ -9,6 +14,12 @@ namespace JournalMdServer.Services
     {
         public NotesService(IRepository<Note> repository, IMapper mapper): base(repository, mapper)
         {
+        }
+
+        public override async Task<ActionResult<IEnumerable<NoteOutput>>> GetAll(long userId)
+        {
+            var entities = await _repository.Query.Include(inc => inc.NoteValues).Where(m => m.UserId == userId).ToListAsync();
+            return _mapper.Map<List<NoteOutput>>(entities);
         }
 
         // Intentionally left empty

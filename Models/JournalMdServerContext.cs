@@ -195,8 +195,14 @@ namespace JournalMdServer.Models
                 new Note { Id = 2, UserId = 1, NoteTypeId = 3, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Task
                 new Note { Id = 3, UserId = 1, NoteTypeId = 8, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Weight Measurement
 
-                new Note { Id = 4, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }, // Journal
-                new Note { Id = 5, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // Journal
+                new Note { Id = 4, UserId = 2, NoteTypeId = 1, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // Journal
+            );
+
+            modelBuilder.Entity<NoteValue>().HasData(
+                new NoteValue { Id = 1, UserId = 1, NoteId = 1, NoteFieldId = 1, Value = "Test Title", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 2, UserId = 1, NoteId = 1, NoteFieldId = 2, Value = "**Test** Description\n\n# Test Header", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 3, UserId = 1, NoteId = 1, NoteFieldId = 3, Value = "5", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 4, UserId = 1, NoteId = 1, NoteFieldId = 4, Value = "", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now } // tags
             );
         }
     }
