@@ -10,6 +10,35 @@
 dotnet run
 ```
 
+## Docker
+
+### Build the container
+
+Create the `appsettings.Production.json` file with `secret` or change `appsettings.json`.
+
+```sh
+docker build -t journalmd-server .
+```
+
+### Run the container
+
+```sh
+docker run -it -p 8500:80 --rm journalmd-server
+```
+
+Access the application on [localhost:8500/api/](http://localhost:8500/api/). Test using cURL.
+
+```sh
+curl -L -X POST 'http://localhost:8500/api/Users/authenticate' \
+-H 'Content-Type: application/json' \
+-H 'Content-Type: text/plain' \
+--data-raw '{
+  "username": "1",
+  "password": "12345678"
+}
+'
+```
+
 ## Development
 
 For Visual Studio Code the `launch.json` is already set up.
