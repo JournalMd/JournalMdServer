@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4e589d88-5100-4293-8960-2337d76e5f9c",
+		"_postman_id": "1d2069ef-b01b-4742-a18b-3b5bab6163b0",
 		"name": "JournalMdServer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -290,7 +290,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 1,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
 						},
 						"url": {
 							"raw": "https://localhost:44302/api/Notes",
@@ -321,7 +321,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"userid\": 99,\n\t\"bla\": 4\n}\n"
+							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"notetypeid\": 1,\n\t\"mood\": 5,\n\t\"date\": \"2020-04-11T11:00:00\",\n\t\"userid\": 99,\n\t\"bla\": 4\n}\n"
 						},
 						"url": {
 							"raw": "https://localhost:44302/api/Notes/1",
@@ -732,7 +732,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODcxMDk0NTcsImV4cCI6MTU4NzcxNDI1NywiaWF0IjoxNTg3MTA5NDU3fQ.JDXsR5y2NoYxcLK3fFTHJsjE0sRzMsvaL0YgMSVol74",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODcyMTY1OTMsImV4cCI6MTU4NzgyMTM5MywiaWF0IjoxNTg3MjE2NTkzfQ.8oNB_eE3ZQvkDN8SvoTExm2DA5o3r1tg-fz7oR9zd9k",
 				"type": "string"
 			}
 		]

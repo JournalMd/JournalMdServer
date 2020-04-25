@@ -8,12 +8,14 @@ namespace JournalMdServer.Models
     public class Note : BaseAuditEntity, IBaseModel
     {
         [Required]
+        [MinLength(3)]
         public string Title { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
+        [Range(1, 5)]
         public int Mood { get; set; }
 
         [Required]

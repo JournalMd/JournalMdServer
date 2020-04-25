@@ -8,14 +8,12 @@ namespace JournalMdServer.DTOs.NoteValues
 {
     public class NoteValueInput
     {
-        [Required]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         public string Value { get; set; }
 
-        [Required]
-        public long NoteId { get; set; }
+        public long? NoteId { get; set; }
 
         [Required]
         public long NoteFieldId { get; set; }

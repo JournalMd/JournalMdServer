@@ -10,12 +10,14 @@ namespace JournalMdServer.DTOs.Notes
     public class NoteInput
     {
         [Required]
+        [MinLength(3)]
         public string Title { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
+        [Range(1, 5)]
         public int Mood { get; set; }
 
         [Required]
