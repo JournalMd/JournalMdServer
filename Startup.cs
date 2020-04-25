@@ -41,11 +41,13 @@ namespace JournalMdServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            var appSettings = appSettingsSection.Get<AppSettings>();
+
             // Environment specific servers
-            if (_env.IsProduction())
-                services.AddDbContext<JournalMdServerContext>(options => options.UseSqlServer(_configuration.GetConnectionString("JournalMdDatabase")));
-            else
-                services.AddDbContext<JournalMdServerContext>(options => options.UseSqlite("Data Source=journalmd.db"));
+            ConfigureDatabase(services, appSettings);
 
             // services.AddCors();
             services.AddControllers();
@@ -53,12 +55,33 @@ namespace JournalMdServer
             // Auto Mapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // Strongly typed settings objects
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-
             // Use jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            ConfigureJwt(services, appSettings);
+
+            // Add Swagger and define documents
+            if (_env.IsDevelopment())
+            {
+                ConfigureSwagger(services);
+            }
+
+            // Add all Repositories
+            services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
+
+            // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
+            services.AddScoped<UsersService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
+            services.AddScoped<NoteTypesService>();
+            services.AddScoped<NoteFieldsService>();
+            services.AddScoped<TagsService>();
+            services.AddScoped<CategoriesService>();
+            services.AddScoped<NotesService>();
+        }
+
+        private static void ConfigureJwt(IServiceCollection services, AppSettings appSettings)
+        {
+            if (appSettings.Secret == string.Empty)
+            {
+                throw new ArgumentException("Secret not set.", "AppSettings.Secret");
+            }
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
@@ -92,43 +115,43 @@ namespace JournalMdServer
                     ValidateAudience = false
                 };
             });
+        }
 
-            // Add Swagger and define documents
-            if (_env.IsDevelopment())
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
             {
-                services.AddSwaggerGen(c =>
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    c.SwaggerDoc("v1", new OpenApiInfo
+                    Version = "v1",
+                    Title = "JournalMd Server",
+                    Description = "API documentation for JournalMd.",
+                    TermsOfService = new Uri("https://www.spech.de/impressum"),
+                    Contact = new OpenApiContact
                     {
-                        Version = "v1",
-                        Title = "JournalMd Server",
-                        Description = "API documentation for JournalMd.",
-                        TermsOfService = new Uri("https://www.spech.de/impressum"),
-                        Contact = new OpenApiContact
-                        {
-                            Name = "Sebastian Pech",
-                            Email = string.Empty,
-                            Url = new Uri("https://www.spech.de"),
-                        },
-                        /*License = new OpenApiLicense
-                        {
-                            Name = "Private",
-                            Url = new Uri("https://example.com/license"),
-                        }*/
-                    });
-                    // Add Authentication Button
-                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                        Name = "Sebastian Pech",
+                        Email = string.Empty,
+                        Url = new Uri("https://www.spech.de"),
+                    },
+                    /*License = new OpenApiLicense
                     {
-                        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
-                        Name = "Authorization",
-                        In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer"
-                    });
-                    // Add Authorize Filter
-                    c.OperationFilter<AuthResponsesOperationFilter>();
-                    // Show locks
-                    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                        Name = "Private",
+                        Url = new Uri("https://example.com/license"),
+                    }*/
+                });
+                // Add Authentication Button
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                // Add Authorize Filter
+                c.OperationFilter<AuthResponsesOperationFilter>();
+                // Show locks
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                     {
                          {
                             new OpenApiSecurityScheme{
@@ -139,19 +162,39 @@ namespace JournalMdServer
                             }, new List<string>()
                         }
                     });
-                });
+            });
+        }
+
+        private void ConfigureDatabase(IServiceCollection services, AppSettings appSettings)
+        {
+            string dbType = appSettings.DbType;
+            switch (dbType)
+            {
+                case "mssql":
+                    {
+                        services.AddDbContext<JournalMdServerContext>(options => options.UseSqlServer(_configuration.GetConnectionString("mssqlDatabase")));
+                        break;
+                    }
+                case "mysql":
+                    {
+                        services.AddDbContextPool<JournalMdServerContext>(options => options.UseMySql(_configuration.GetConnectionString("mysqlDatabase")));
+                        //, mySqlOptions => mySqlOptions.ServerVersion(new Version(8, 0, 18), ServerType.MySql);
+                        break;
+                    }
+                case "sqlite":
+                    {
+                        if (_env.IsProduction())
+                        {
+                            Console.WriteLine("SQLite should not be used on production environment!");
+                        }
+                        services.AddDbContext<JournalMdServerContext>(options => options.UseSqlite(_configuration.GetConnectionString("sqliteDatabase")));
+                        break;
+                    }
+                default:
+                    {
+                        throw new ArgumentException("DbType not supported.", "AppSettings.DbType");
+                    }
             }
-
-            // Add all Repositories
-            services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
-
-            // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
-            services.AddScoped<UsersService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
-            services.AddScoped<NoteTypesService>();
-            services.AddScoped<NoteFieldsService>();
-            services.AddScoped<TagsService>();
-            services.AddScoped<CategoriesService>();
-            services.AddScoped<NotesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
