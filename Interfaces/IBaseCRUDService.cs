@@ -20,7 +20,7 @@ namespace JournalMdServer.Interfaces
         public Task<ActionResult<IEnumerable<OUTP>>> GetAll(long userId);
         public Task<OUTP> GetById(long id, long userId);
         public Task<OUTP> Create(INP inputModel, long userId);
-        public Task Update(long id, INP inputModel, long userId);
+        public Task<OUTP> Update(long id, INP inputModel, long userId);
         public Task<long?> Delete(long id, long userId);
     }
 }

@@ -48,7 +48,7 @@ namespace JournalMdServer.Services
             return _mapper.Map<OUTP>(entry);
         }
 
-        public virtual async Task Update(long id, INP inputModel, long userId)
+        public virtual async Task<OUTP> Update(long id, INP inputModel, long userId)
         {
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
@@ -60,6 +60,7 @@ namespace JournalMdServer.Services
 
             _repository.Update(dbEntry);
             await _repository.Context.SaveChangesAsync();
+            return _mapper.Map<OUTP>(dbEntry);
         }
 
         public virtual async Task<long?> Delete(long id, long userId)

@@ -68,21 +68,19 @@ namespace JournalMdServer.Controllers
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, INP model)
+        public async Task<ActionResult<OUTP>> Update(long id, INP model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
 
             try
             {
-                await _service.Update(id, model, this.GetAuthenticatedId());
+                return Ok(await _service.Update(id, model, this.GetAuthenticatedId()));
             }
             catch (Exception e)
             {
                 return BadRequest(new { message = e.Message });
             }
-
-            return NoContent();
         }
 
         // DELETE: api/[controller]/5

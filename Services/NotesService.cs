@@ -9,7 +9,7 @@ using System.Linq;
 using AutoMapper;
 using System;
 using JournalMdServer.Helpers;
-using JournalMdServer.DTOs.NoteValues;
+using JournalMdServer.Notes;
 
 namespace JournalMdServer.Services
 {
@@ -41,12 +41,13 @@ namespace JournalMdServer.Services
                 if (noteValue == null)
                     throw new AppException(String.Format("Field '{0}' not found.", nField.Title));
 
-                // TODO UpdateCalculatedField();
                 ValidateField(noteValue, nField);
 
                 noteValue.Id = 0; // Prevent that the user can set a real id!
                 noteValue.SetCreateFields(userId);
             }
+
+            UpdateCalculatedFields(entry.NoteValues, noteFields);
 
             _repository.Insert(entry);
             await _repository.Context.SaveChangesAsync();
@@ -54,7 +55,7 @@ namespace JournalMdServer.Services
             return _mapper.Map<NoteOutput>(entry);
         }
 
-        public override async Task Update(long id, NoteInput inputModel, long userId)
+        public override async Task<NoteOutput> Update(long id, NoteInput inputModel, long userId)
         {
             var dbEntry = await _repository.Query.Include(inc => inc.NoteValues).FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
@@ -82,15 +83,17 @@ namespace JournalMdServer.Services
 
                 var dbNoteValue = dbEntry.NoteValues.Single(nf => nf.NoteFieldId == inputNoteValue.NoteFieldId);
                 dbNoteValue = _mapper.Map(inputNoteValue, dbNoteValue); // NoteFieldId is kept the same as this is used to find the entry
-                // TODO UpdateCalculatedField();
                 ValidateField(dbNoteValue, nField);
                 dbNoteValue.SetUpdateFields(userId);
             }
+
+            UpdateCalculatedFields(dbEntry.NoteValues, noteFields);
 
             // TODO tag category
 
             _repository.Update(dbEntry);
             await _repository.Context.SaveChangesAsync();
+            return _mapper.Map<NoteOutput>(dbEntry);
         }
 
         private void ValidateField(NoteValue e, NoteField noteField)
@@ -113,57 +116,17 @@ namespace JournalMdServer.Services
                 throw new AppException(String.Format("Field '{0}' does not contain a valid number.", noteField.Title));
         }
 
-        // TODO Rules Parser
-        // TODO Calculator
-
-        // TODO move this code to calculator
-        /*
-
-        /// <summary>	
-        /// Calculated	
-        /// https://de.wikipedia.org/wiki/Body-Mass-Index	
-        /// </summary>	
-        public double? BodyMassIndex	
-        {	
-            get	
-            {	
-                if (Weight <= 0 || Height <= 0)	
-                    return null;	
-
-                return Weight / (Height * Height) * 10000.0;	
-            }	
-        }	
-
-        /// <summary>	
-        /// Calculated	
-        /// https://de.wikipedia.org/wiki/Ponderal-Index	
-        /// </summary>	
-        public double? PonderalIndex	
-        {	
-            get	
-            {	
-                if (Weight <= 0 || Height <= 0)	
-                    return null;	
-
-                return Weight / (Height * Height * Height) * 1000000.0;	
-            }	
-        }	
-    
-        /// <summary>	
-        /// Calculated	
-        /// https://en.wikipedia.org/wiki/Waist%E2%80%93hip_ratio	
-        /// https://de.wikipedia.org/wiki/Taille-H%C3%BCft-Verh%C3%A4ltnis	
-        /// </summary>	
-        public double? WaistToHipRatio	
-        {  	
-            get	
-            {	
-                if (Waist == null || Hips == null || Waist <= 0 || Hips <= 0)	
-                    return null;	
-
-                return Waist / Hips;	
-            } 	
-        }    
-        */
+        private void UpdateCalculatedFields(ICollection<NoteValue> noteValues, List<NoteField> noteFields)
+        {
+            foreach (var nField in noteFields)
+            {
+                if(nField.Type == "calculated")
+                {
+                    var calcRule = (new RulesParser(nField.Rules)).GetValue("calculation");
+                    var noteValue = noteValues.Single(nf => nf.NoteFieldId == nField.Id);
+                    noteValue.Value = Calculator.CalculateField(calcRule, noteValues, noteFields);
+                }
+            }            
+        }
     }
 }
