@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using AutoMapper;
 using Task = System.Threading.Tasks.Task;
+using JournalMdServer.Helpers;
 
 namespace JournalMdServer.Services
 {
@@ -39,11 +40,7 @@ namespace JournalMdServer.Services
         public virtual async Task<OUTP> Create(INP inputModel, long userId)
         {
             var entry = _mapper.Map<TEntity>(inputModel);
-            entry.UserId = userId;
-            entry.CreatedById = userId;
-            entry.CreatedAt = DateTime.Now;
-            entry.UpdatedById = userId;
-            entry.UpdatedAt = DateTime.Now;
+            entry.SetCreateFields(userId);
 
             _repository.Insert(entry);
             await _repository.Context.SaveChangesAsync();
@@ -56,9 +53,10 @@ namespace JournalMdServer.Services
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
             if (dbEntry == null || id != dbEntry.Id)
-                throw new ArgumentException("Invalid id");
+                throw new AppException("Invalid id");
 
             dbEntry = _mapper.Map<INP, TEntity>(inputModel, dbEntry);
+            dbEntry.SetUpdateFields(userId);
 
             _repository.Update(dbEntry);
             await _repository.Context.SaveChangesAsync();

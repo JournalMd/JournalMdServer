@@ -18,5 +18,21 @@ namespace JournalMdServer.Models
         // FK
         public long UserId { get; set; }
         public User User { get; set; }
+
+        public void SetCreateFields(long userId)
+        {
+            UserId = userId;
+            CreatedAt = DateTime.Now;
+            CreatedById = userId;
+            UpdatedAt = DateTime.Now;
+            UpdatedById = UserId;
+        }
+
+        public void SetUpdateFields(long userId)
+        {
+            UserId = userId;
+            UpdatedAt = DateTime.Now;
+            UpdatedById = UserId;
+        }
     }
 }

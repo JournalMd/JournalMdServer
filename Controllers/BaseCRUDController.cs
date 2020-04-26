@@ -55,8 +55,15 @@ namespace JournalMdServer.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
 
-            var newEntitie = await _service.Create(model, this.GetAuthenticatedId());
-            return CreatedAtAction(nameof(Create), new { id = newEntitie.Id }, newEntitie);
+            try
+            {
+                var newEntitie = await _service.Create(model, this.GetAuthenticatedId());
+                return CreatedAtAction(nameof(Create), new { id = newEntitie.Id }, newEntitie);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
         }
 
         // PUT: api/[controller]/5

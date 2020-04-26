@@ -8,12 +8,11 @@ namespace JournalMdServer.DTOs.NoteValues
 {
     public class NoteValueInput
     {
-        public long? Id { get; set; }
+        // [Required]
+        // public long Id { get; set; } // must be set to 0 in create to prevent forcing ids by user!!!
+        // Don't use at all. There can only be one NoteFieldId for every NoteType - get the fields by that!
 
-        [Required]
         public string Value { get; set; }
-
-        public long? NoteId { get; set; }
 
         [Required]
         public long NoteFieldId { get; set; }

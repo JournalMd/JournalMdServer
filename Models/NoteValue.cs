@@ -6,7 +6,6 @@ namespace JournalMdServer.Models
 {
     public class NoteValue : BaseAuditEntity, IBaseModel
     {
-        [Required]
         public string Value { get; set; }
 
         // Relations

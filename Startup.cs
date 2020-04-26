@@ -70,7 +70,6 @@ namespace JournalMdServer
             // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
             services.AddScoped<UsersService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
             services.AddScoped<NoteTypesService>();
-            services.AddScoped<NoteFieldsService>();
             services.AddScoped<TagsService>();
             services.AddScoped<CategoriesService>();
             services.AddScoped<NotesService>();

@@ -13,7 +13,6 @@ namespace JournalMdServer.DTOs.Notes
         [MinLength(3)]
         public string Title { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
         [Required]

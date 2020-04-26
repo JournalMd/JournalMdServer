@@ -122,7 +122,7 @@ namespace JournalMdServer.Services
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.Id == userId); // PK == userId
 
             if (dbEntry == null)
-                throw new ArgumentException("Invalid user");
+                throw new AppException("Invalid user");
 
             dbEntry = _mapper.Map(inputModel, dbEntry);
 
@@ -142,10 +142,10 @@ namespace JournalMdServer.Services
             var dbEntry = await _repository.Query.FirstOrDefaultAsync(m => m.Id == userId); // PK == userId
 
             if (dbEntry == null)
-                throw new ArgumentException("Invalid user");
+                throw new AppException("Invalid user");
 
             if(!VerifyPasswordHash(inputModel.OldPassword, dbEntry.PasswordHash, dbEntry.PasswordSalt))
-                throw new ArgumentException("Invalid password");
+                throw new AppException("Invalid password");
 
             CreatePasswordHash(inputModel.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
             dbEntry.PasswordHash = passwordHash;
