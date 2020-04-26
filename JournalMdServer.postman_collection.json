@@ -290,7 +290,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 1,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 3,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4,\r\n    \"noteValues\": [\r\n        {\r\n        \t\"id\": 999999,\r\n            \"value\": \"false\",\r\n            \"noteFieldId\": 1\r\n        },\r\n        {\r\n            \"value\": \"2022-10-01\",\r\n            \"noteFieldId\": 2\r\n        }\r\n    ]\r\n}\r\n"
 						},
 						"url": {
 							"raw": "https://localhost:44302/api/Notes",
@@ -308,7 +308,69 @@
 					"response": []
 				},
 				{
-					"name": "PutNote",
+					"name": "PostNote Wrong Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 3,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4,\r\n    \"noteValues\": [\r\n        {\r\n            \"id\": 999999,\r\n            \"value\": \"false\",\r\n            \"noteId\": 999999,\r\n            \"noteFieldId\": 1\r\n        },\r\n        {\r\n            \"id\": 999999,\r\n            \"value\": \"2022-10-01\",\r\n            \"noteId\": 999999,\r\n            \"noteFieldId\": 999999\r\n        }\r\n    ]\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostNote Calculated",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"Test Weight\",\r\n\t\"description\": \"Weight Description\",\r\n\t\"notetypeid\": 8,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n    \"noteValues\": [\r\n        {\r\n            \"value\": \"80\",\r\n            \"noteFieldId\": 5\r\n        },\r\n        {\r\n            \"value\": \"180\",\r\n            \"noteFieldId\": 6\r\n        },\r\n        {\r\n            \"value\": \"78\",\r\n            \"noteFieldId\": 7\r\n        },\r\n        {\r\n            \"value\": \"\",\r\n            \"noteFieldId\": 8\r\n        },\r\n        {\r\n            \"value\": \"\",\r\n            \"noteFieldId\": 9\r\n        }\r\n    ]\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutNote Simple",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -340,6 +402,70 @@
 					"response": []
 				},
 				{
+					"name": "PutNote Fields",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New 5 Title\",\n\t\"description\": \"PUT\",\n\t\"notetypeid\": 1,\n\t\"mood\": 5,\n\t\"date\": \"2020-04-04T11:00:00\",\n\t\"userid\": 99,\n\t\"bla\": 4,\n    \"noteValues\": [\n        {\n        \t\"id\": 999999,\n            \"value\": \"true\",\n            \"noteFieldId\": 1\n        },\n        {\n            \"value\": \"2022-2-22\",\n            \"noteFieldId\": 2\n        }\n    ]\n}\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutNote Wrong Fields",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"notetypeid\": 1,\n\t\"mood\": 5,\n\t\"date\": \"2020-04-11T11:00:00\",\n\t\"userid\": 99,\n\t\"bla\": 4,\n    \"noteValues\": [\n        {\n        \t\"id\": 999999,\n            \"value\": \"true\",\n            \"noteFieldId\": 777777\n        },\n        {\n            \"value\": \"2022-2-22\",\n            \"noteFieldId\": 97899898\n        }\n    ]\n}\n"
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Notes/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Notes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "DeleteNote",
 					"request": {
 						"method": "DELETE",
@@ -354,205 +480,6 @@
 							"path": [
 								"api",
 								"Notes",
-								"3"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "WeightMeasurements",
-			"item": [
-				{
-					"name": "GetWeightMeasurements",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
-								"exec": [
-									"pm.test(\"response is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetWeightMeasurement No Token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "fa99fdb4-b24c-42c1-b834-80061c4c7208",
-								"exec": [
-									"pm.test(\"response is 401\", function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetWeightMeasurement 1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
-								"exec": [
-									"pm.test(\"response is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements/1",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PostWeightMeasurement",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"weight\": 99.0,\r\n\t\"height\": 182.0,\r\n\t\"userid\": 99,\r\n\t\"bla\": 4\r\n}\r\n"
-						},
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PutWeightMeasurement",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"title\": \"New 1.1 Title\",\n\t\"description\": \"PUT\",\n\t\"weight\": 99.1,\n\t\"height\": 182.1,\n\t\"userid\": 99,\n\t\"bla\": 4\n}\n"
-						},
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements/1",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteWeightMeasurement",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44302/api/WeightMeasurements/3",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"WeightMeasurements",
 								"3"
 							]
 						}
@@ -595,47 +522,6 @@
 							"path": [
 								"api",
 								"NoteTypes"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "NoteFields",
-			"item": [
-				{
-					"name": "GetNoteFields",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c580dffd-8c5b-4961-a6db-bc2c1f4522ba",
-								"exec": [
-									"pm.test(\"response is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:44302/api/NoteFields",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "44302",
-							"path": [
-								"api",
-								"NoteFields"
 							]
 						}
 					},
@@ -732,7 +618,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODcyMTY1OTMsImV4cCI6MTU4NzgyMTM5MywiaWF0IjoxNTg3MjE2NTkzfQ.8oNB_eE3ZQvkDN8SvoTExm2DA5o3r1tg-fz7oR9zd9k",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODc4NDA1NDIsImV4cCI6MTU4ODQ0NTM0MiwiaWF0IjoxNTg3ODQwNTQyfQ.E84MRKyD_qFFyHgNgWlGYAp5jfowRzZn6-Zwi1M3ebs",
 				"type": "string"
 			}
 		]
