@@ -9,6 +9,7 @@ using System.Linq;
 using AutoMapper;
 using System;
 using JournalMdServer.Helpers;
+using JournalMdServer.DTOs.NoteValues;
 
 namespace JournalMdServer.Services
 {
@@ -33,17 +34,18 @@ namespace JournalMdServer.Services
             entry.SetCreateFields(userId);
 
             var noteFields = await noteFieldRepository.Query.Where(nf => nf.NoteTypeId == entry.NoteTypeId).ToListAsync();
-
-            foreach (var e in entry.NoteValues)
+            foreach (var nField in noteFields)
             {
                 // Validate fieldtype-fields to prevent adding data to wrong fields/types
-                if(!noteFields.Exists(nf => nf.Id == e.NoteFieldId))
-                    throw new AppException("Field not found on type.");
+                var noteValue = entry.NoteValues.SingleOrDefault(nv => nv.NoteFieldId == nField.Id);
+                if (noteValue == null)
+                    throw new AppException(String.Format("Field '{0}' not found.", nField.Title));
 
-                ValidateField(e, noteFields.First(nf => nf.Id == e.NoteFieldId));
+                // TODO UpdateCalculatedField();
+                ValidateField(noteValue, nField);
 
-                e.Id = 0; // Prevent that the user can set a real id!
-                e.SetCreateFields(userId);
+                noteValue.Id = 0; // Prevent that the user can set a real id!
+                noteValue.SetCreateFields(userId);
             }
 
             _repository.Insert(entry);
@@ -59,8 +61,33 @@ namespace JournalMdServer.Services
             if (dbEntry == null || id != dbEntry.Id)
                 throw new AppException("Invalid id");
 
-            dbEntry = _mapper.Map(inputModel, dbEntry);
+            // Update entity
+            // dbEntry = _mapper.Map(inputModel, dbEntry); DONT USE AUTOMAPPER - Merging is more complex here!
+            // NEVER merge NoteTypeId!
+            dbEntry.Title = inputModel.Title;
+            dbEntry.Description = inputModel.Description;
+            dbEntry.Mood = inputModel.Mood;
+            dbEntry.Date = inputModel.Date;
+            dbEntry.Title = inputModel.Title;
             dbEntry.SetUpdateFields(userId);
+
+            // Update Note Values (they must exist as the create process already created them! - keep in mind for migration scripts with new fields - they need to create all fields!)
+            var noteFields = await noteFieldRepository.Query.Where(nf => nf.NoteTypeId == dbEntry.NoteTypeId).ToListAsync();
+            foreach (var nField in noteFields)
+            {
+                // Validate fieldtype-fields to prevent adding data to wrong fields/types
+                var inputNoteValue = inputModel.NoteValues.SingleOrDefault(nv => nv.NoteFieldId == nField.Id);
+                if (inputNoteValue == null)
+                    throw new AppException(String.Format("Field '{0}' not found.", nField.Title));
+
+                var dbNoteValue = dbEntry.NoteValues.Single(nf => nf.NoteFieldId == inputNoteValue.NoteFieldId);
+                dbNoteValue = _mapper.Map(inputNoteValue, dbNoteValue); // NoteFieldId is kept the same as this is used to find the entry
+                // TODO UpdateCalculatedField();
+                ValidateField(dbNoteValue, nField);
+                dbNoteValue.SetUpdateFields(userId);
+            }
+
+            // TODO tag category
 
             _repository.Update(dbEntry);
             await _repository.Context.SaveChangesAsync();
