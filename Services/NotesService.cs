@@ -47,7 +47,7 @@ namespace JournalMdServer.Services
                 noteValue.SetCreateFields(userId);
             }
 
-            UpdateCalculatedFields(entry.NoteValues, noteFields);
+            UpdateCalculatedFields(entry, noteFields);
 
             _repository.Insert(entry);
             await _repository.Context.SaveChangesAsync();
@@ -87,7 +87,7 @@ namespace JournalMdServer.Services
                 dbNoteValue.SetUpdateFields(userId);
             }
 
-            UpdateCalculatedFields(dbEntry.NoteValues, noteFields);
+            UpdateCalculatedFields(dbEntry, noteFields);
 
             // TODO tag category
 
@@ -116,15 +116,15 @@ namespace JournalMdServer.Services
                 throw new AppException(String.Format("Field '{0}' does not contain a valid number.", noteField.Title));
         }
 
-        private void UpdateCalculatedFields(ICollection<NoteValue> noteValues, List<NoteField> noteFields)
+        private void UpdateCalculatedFields(Note note, List<NoteField> noteFields)
         {
             foreach (var nField in noteFields)
             {
                 if(nField.Type == "calculated")
                 {
                     var calcRule = (new RulesParser(nField.Rules)).GetValue("calculation");
-                    var noteValue = noteValues.Single(nf => nf.NoteFieldId == nField.Id);
-                    noteValue.Value = Calculator.CalculateField(calcRule, noteValues, noteFields);
+                    var noteValue = note.NoteValues.Single(nf => nf.NoteFieldId == nField.Id);
+                    noteValue.Value = Calculator.CalculateField(calcRule, note, noteFields);
                 }
             }            
         }

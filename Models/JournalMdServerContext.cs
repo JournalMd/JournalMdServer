@@ -86,12 +86,13 @@ namespace JournalMdServer.Models
                 new NoteType { Id = 1, Order = 1, Name = "journal", Title = "Journal", Description = "Summarize your day or write down your thoughts.", NoteDescriptionShort = false },
                 new NoteType { Id = 2, Order = 2, Name = "note", Title = "Note", Description = "Write a simple note.", NoteDescriptionShort = false },
                 new NoteType { Id = 3, Order = 3, Name = "task", Title = "Task", Description = "A task you must complete.", NoteDescriptionShort = false },
-                new NoteType { Id = 4, Order = 4, Name = "goal", Title = "Goal", Description = "A goal you want to achieve.", NoteDescriptionShort = false },
-                new NoteType { Id = 5, Order = 5, Name = "activity", Title = "Activity", Description = "Something you've done.", NoteDescriptionShort = false },
-                new NoteType { Id = 6, Order = 6, Name = "habit", Title = "Habit", Description = "Record your habits.", NoteDescriptionShort = false },
-                new NoteType { Id = 7, Order = 7, Name = "routine", Title = "Routine", Description = "Write down what you want to do every day.", NoteDescriptionShort = false },
-                new NoteType { Id = 8, Order = 8, Name = "weightmeasurement", Title = "Weight Measurement", Description = "Track your weight.", NoteDescriptionShort = true },
-                new NoteType { Id = 9, Order = 9, Name = "bodymeasurement", Title = "Body Measurement", Description = "Track your body measurements.", NoteDescriptionShort = true }
+                new NoteType { Id = 4, Order = 5, Name = "goal", Title = "Goal", Description = "A goal you want to achieve.", NoteDescriptionShort = false },
+                new NoteType { Id = 5, Order = 6, Name = "activity", Title = "Activity", Description = "Something you've done.", NoteDescriptionShort = false },
+                new NoteType { Id = 6, Order = 7, Name = "habit", Title = "Habit", Description = "Record your habits.", NoteDescriptionShort = false },
+                new NoteType { Id = 7, Order = 8, Name = "routine", Title = "Routine", Description = "Write down what you want to do every day.", NoteDescriptionShort = false },
+                new NoteType { Id = 8, Order = 9, Name = "weightmeasurement", Title = "Weight Measurement", Description = "Track your weight.", NoteDescriptionShort = true },
+                new NoteType { Id = 9, Order = 10, Name = "bodymeasurement", Title = "Body Measurement", Description = "Track your body measurements.", NoteDescriptionShort = true },
+                new NoteType { Id = 10, Order = 4, Name = "project", Title = "Project", Description = "List of tasks.", NoteDescriptionShort = false }
             );
 
             modelBuilder.Entity<NoteField>().HasData(
@@ -123,7 +124,10 @@ namespace JournalMdServer.Models
                 new NoteField { Id = 17, NoteTypeId = 9, Order = 8, Name = "bodyfatpercentage", Title = "Body-Fat-Percentage", Description = "", Required = false, Rules = "", Type = "number" }, // Body Fat %
                 new NoteField { Id = 18, NoteTypeId = 9, Order = 9, Name = "totalbodywater", Title = "Total-Body-Water", Description = "", Required = false, Rules = "", Type = "number" }, // Wasseranteil
                 new NoteField { Id = 19, NoteTypeId = 9, Order = 10, Name = "musclemass", Title = "Muscle-Mass", Description = "", Required = false, Rules = "", Type = "number" }, // Muskelanteil
-                new NoteField { Id = 20, NoteTypeId = 9, Order = 11, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" }
+                new NoteField { Id = 20, NoteTypeId = 9, Order = 11, Name = "waisttohipratio", Title = "Waist-To-Hip-Ratio", Description = "", Required = false, Rules = "calculation=waisttohipratio", Type = "calculated" },
+                // Project
+                new NoteField { Id = 21, NoteTypeId = 10, Order = 1, Name = "completed", Title = "Completed", Description = "Is it done?", Required = false, Rules = "calculation=completed", Type = "calculated" },
+                new NoteField { Id = 22, NoteTypeId = 10, Order = 2, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" }
             );
 
             modelBuilder.Entity<Category>().HasData(

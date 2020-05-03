@@ -13,16 +13,19 @@ namespace JournalMdServer.Notes
         private static Dictionary<string, ICalculation> calculations = new Dictionary<string, ICalculation>{
             { "bodymassindex", new BodyMassIndex() },
             { "ponderalindex", new PonderalIndex() },
-            { "waisttohipratio", new WaistToHipRatio() }
+            { "waisttohipratio", new WaistToHipRatio() },
+            { "completed", new Completed() }
         };
 
-        public static string CalculateField(string calculation, ICollection<NoteValue> noteValues, List<NoteField> noteFields)
+        public static string CalculateField(string calculation, Note note, List<NoteField> noteFields)
         {
             Dictionary<string, string> values = new Dictionary<string, string>();
             foreach (var nField in noteFields)
             {
-                values.Add(nField.Name, noteValues.Single(nf => nf.NoteFieldId == nField.Id).Value);
+                values.Add(nField.Name, note.NoteValues.Single(nf => nf.NoteFieldId == nField.Id).Value);
             }
+            values.Add("description", note.Description);
+            values.Add("title", note.Title);
 
             return calculations[calculation].Calculate(values);
         }
