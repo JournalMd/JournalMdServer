@@ -290,7 +290,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 3,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4,\r\n    \"noteValues\": [\r\n        {\r\n        \t\"id\": 999999,\r\n            \"value\": \"false\",\r\n            \"noteFieldId\": 1\r\n        },\r\n        {\r\n            \"value\": \"2022-10-01\",\r\n            \"noteFieldId\": 2\r\n        }\r\n    ]\r\n}\r\n"
+							"raw": "{\r\n\t\"title\": \"New Title\",\r\n\t\"description\": \"New Description\",\r\n\t\"notetypeid\": 3,\r\n\t\"mood\": 3,\r\n\t\"date\": \"2020-04-01T12:00:00\",\r\n\t\"userid\": 99,\r\n\t\"bla\": 4,\r\n    \"noteValues\": [\r\n        {\r\n        \t\"id\": 999999,\r\n            \"value\": \"false\",\r\n            \"noteFieldId\": 1\r\n        },\r\n        {\r\n            \"value\": \"2022-10-01\",\r\n            \"noteFieldId\": 2\r\n        }\r\n    ],\r\n    \"categories\": [2, 10],\r\n    \"tags\": [1]\r\n}\r\n"
 						},
 						"url": {
 							"raw": "https://localhost:44302/api/Notes",
@@ -415,7 +415,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"New 5 Title\",\n\t\"description\": \"PUT\",\n\t\"notetypeid\": 1,\n\t\"mood\": 5,\n\t\"date\": \"2020-04-04T11:00:00\",\n\t\"userid\": 99,\n\t\"bla\": 4,\n    \"noteValues\": [\n        {\n        \t\"id\": 999999,\n            \"value\": \"true\",\n            \"noteFieldId\": 1\n        },\n        {\n            \"value\": \"2022-2-22\",\n            \"noteFieldId\": 2\n        }\n    ]\n}\n"
+							"raw": "{\n\t\"title\": \"New 5 Title\",\n\t\"description\": \"PUT\",\n\t\"notetypeid\": 1,\n\t\"mood\": 5,\n\t\"date\": \"2020-04-04T11:00:00\",\n\t\"userid\": 99,\n\t\"bla\": 4,\n    \"noteValues\": [\n        {\n        \t\"id\": 999999,\n            \"value\": \"true\",\n            \"noteFieldId\": 1\n        },\n        {\n            \"value\": \"2022-2-22\",\n            \"noteFieldId\": 2\n        }\n    ],\n    \"categories\": [2, 10],\n    \"tags\": [1]\n}\n"
 						},
 						"url": {
 							"raw": "https://localhost:44302/api/Notes/5",
@@ -567,6 +567,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "PostTags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0b7d2f7-636f-45f4-8ea6-6196d23da640",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\": \"Postman Tag 1 äöü_-+?\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/Tags",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Tags"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -618,7 +668,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODc4NDA1NDIsImV4cCI6MTU4ODQ0NTM0MiwiaWF0IjoxNTg3ODQwNTQyfQ.E84MRKyD_qFFyHgNgWlGYAp5jfowRzZn6-Zwi1M3ebs",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODkwMTQ2NTIsImV4cCI6MTU4OTYxOTQ1MiwiaWF0IjoxNTg5MDE0NjUyfQ.uYTF9rmGoMRA6FHNEs0VUNKA2WyRBMQM4JsIbvSkh4s",
 				"type": "string"
 			}
 		]
