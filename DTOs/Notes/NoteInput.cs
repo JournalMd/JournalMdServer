@@ -28,6 +28,9 @@ namespace JournalMdServer.DTOs.Notes
 
         public ICollection<NoteValueInput> NoteValues { get; set; }
 
-        //TODO Tag Category
+        // Pseudo relation
+        public ICollection<long> Categories { get; set; }
+
+        public ICollection<long> Tags { get; set; }
     }
 }

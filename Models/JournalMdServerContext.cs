@@ -99,10 +99,10 @@ namespace JournalMdServer.Models
                 // Journal
                 // Note
                 // Task
-                new NoteField { Id = 1, NoteTypeId = 3, Order = 1, Name = "completed", Title = "Completed", Description = "Is it done?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 1, NoteTypeId = 3, Order = 1, Name = "completed", Title = "Completed", Description = "Is it done?", Required = false /* "" = false */, Rules = "", Type = "boolean" },
                 new NoteField { Id = 2, NoteTypeId = 3, Order = 2, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
                 // Goal
-                new NoteField { Id = 3, NoteTypeId = 4, Order = 1, Name = "achieved", Title = "Completed", Description = "Did you make it?", Required = true, Rules = "", Type = "boolean" },
+                new NoteField { Id = 3, NoteTypeId = 4, Order = 1, Name = "achieved", Title = "Completed", Description = "Did you make it?", Required = false /* "" = false */, Rules = "", Type = "boolean" },
                 new NoteField { Id = 4, NoteTypeId = 4, Order = 2, Name = "due", Title = "Due", Description = "When is it due?", Required = false, Rules = "", Type = "datetime" },
                 // Activity
                 // Habit

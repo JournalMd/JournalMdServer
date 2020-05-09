@@ -6,6 +6,7 @@ using JournalMdServer.DTOs.Categories;
 using JournalMdServer.DTOs.Tags;
 using JournalMdServer.DTOs.Notes;
 using JournalMdServer.DTOs.NoteValues;
+using System.Linq;
 
 namespace JournalMdServer.Models
 {
@@ -35,7 +36,9 @@ namespace JournalMdServer.Models
 
             // Notes
             CreateMap<NoteInput, Note>();
-            CreateMap<Note, NoteOutput>();
+            CreateMap<Note, NoteOutput>()
+                .ForMember(cat => cat.Categories, opt => opt.MapFrom(subMap => subMap.NoteCategories.Select(subSel => subSel.CategoryId)))
+                .ForMember(cat => cat.Tags, opt => opt.MapFrom(subMap => subMap.NoteTags.Select(subSel => subSel.TagId)));
 
             // NoteValues
             CreateMap<NoteValueInput, NoteValue>();

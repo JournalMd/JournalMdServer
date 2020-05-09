@@ -16,15 +16,24 @@ namespace JournalMdServer.Services
     public class NotesService: BaseCRUDService<Note, NoteInput, NoteOutput>
     {
         protected readonly IRepository<NoteField> noteFieldRepository;
+        protected readonly IRepository<Category> categoryRepository;
+        protected readonly IRepository<Tag> tagRepository;
 
-        public NotesService(IRepository<Note> repository, IRepository<NoteField> nfRepo, IMapper mapper): base(repository, mapper)
+        public NotesService(IRepository<Note> repository, IRepository<NoteField> nfRepo, IRepository<Category> catRepo, IRepository<Tag> tagRepo, IMapper mapper): base(repository, mapper)
         {
             noteFieldRepository = nfRepo;
+            categoryRepository = catRepo;
+            tagRepository = tagRepo;
         }
 
         public override async Task<ActionResult<IEnumerable<NoteOutput>>> GetAll(long userId)
         {
-            var entities = await _repository.Query.Include(inc => inc.NoteValues).Where(m => m.UserId == userId).ToListAsync();
+            var entities = await _repository.Query
+                .Include(inc => inc.NoteValues)
+                .Include(inc => inc.NoteCategories)
+                .Include(inc => inc.NoteTags)
+                .Where(m => m.UserId == userId)
+                .ToListAsync();
             return _mapper.Map<List<NoteOutput>>(entities);
         }
 
@@ -33,6 +42,7 @@ namespace JournalMdServer.Services
             var entry = _mapper.Map<Note>(inputModel);
             entry.SetCreateFields(userId);
 
+            // Validate and add fields
             var noteFields = await noteFieldRepository.Query.Where(nf => nf.NoteTypeId == entry.NoteTypeId).ToListAsync();
             foreach (var nField in noteFields)
             {
@@ -47,6 +57,18 @@ namespace JournalMdServer.Services
                 noteValue.SetCreateFields(userId);
             }
 
+            // Validate and add category
+            var categories = await categoryRepository.Query.Where(cat => inputModel.Categories.Contains(cat.Id)).ToListAsync(); // No owner check here
+            if (categories.Count() != inputModel.Categories.Count())
+                throw new AppException("Invalid category assignment.");
+            entry.NoteCategories = categories.Select(sel => new NoteCategory() { CategoryId = sel.Id }).ToList();
+
+            // Validate and add tags
+            var tags = await tagRepository.Query.Where(tag => tag.UserId == userId && inputModel.Tags.Contains(tag.Id)).ToListAsync(); // Owner check!
+            if (tags.Count() != inputModel.Tags.Count())
+                throw new AppException("Invalid tag assignment.");
+            entry.NoteTags = tags.Select(sel => new NoteTag() { TagId = sel.Id }).ToList();
+
             UpdateCalculatedFields(entry, noteFields);
 
             _repository.Insert(entry);
@@ -57,7 +79,11 @@ namespace JournalMdServer.Services
 
         public override async Task<NoteOutput> Update(long id, NoteInput inputModel, long userId)
         {
-            var dbEntry = await _repository.Query.Include(inc => inc.NoteValues).FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
+            var dbEntry = await _repository.Query
+                .Include(inc => inc.NoteValues)
+                .Include(inc => inc.NoteCategories)
+                .Include(inc => inc.NoteTags)
+                .FirstOrDefaultAsync(m => m.UserId == userId && m.Id == id);
 
             if (dbEntry == null || id != dbEntry.Id)
                 throw new AppException("Invalid id");
@@ -89,7 +115,31 @@ namespace JournalMdServer.Services
 
             UpdateCalculatedFields(dbEntry, noteFields);
 
-            // TODO tag category
+            // Validate and add category
+            var categories = await categoryRepository.Query.Where(cat => inputModel.Categories.Contains(cat.Id)).ToListAsync(); // No owner check here
+            if (categories.Count() != inputModel.Categories.Count())
+                throw new AppException("Invalid category assignment.");
+            foreach(var existingCategory in dbEntry.NoteCategories.Where(sel => !categories.Any(subSel => subSel.Id == sel.CategoryId)).ToList()) // Remove all entries not in the list anymore
+            {
+                dbEntry.NoteCategories.Remove(existingCategory);
+            }
+            foreach (var newCategory in categories.Where(sel => !dbEntry.NoteCategories.Any(subSel => subSel.CategoryId == sel.Id )).ToList()) // Ad not existing ones
+            {
+                dbEntry.NoteCategories.Add(new NoteCategory() { CategoryId = newCategory.Id });
+            }
+
+            // Validate and add tags
+            var tags = await tagRepository.Query.Where(tag => tag.UserId == userId && inputModel.Tags.Contains(tag.Id)).ToListAsync(); // Owner check!
+            if (tags.Count() != inputModel.Tags.Count())
+                throw new AppException("Invalid tag assignment.");
+            foreach (var existingTag in dbEntry.NoteTags.Where(sel => !tags.Any(subSel => subSel.Id == sel.TagId)).ToList()) // Remove all entries not in the list anymore
+            {
+                dbEntry.NoteTags.Remove(existingTag);
+            }
+            foreach (var newTag in tags.Where(sel => !dbEntry.NoteTags.Any(subSel => subSel.TagId == sel.Id)).ToList()) // Ad not existing ones
+            {
+                dbEntry.NoteTags.Add(new NoteTag() { TagId = newTag.Id });
+            }
 
             _repository.Update(dbEntry);
             await _repository.Context.SaveChangesAsync();

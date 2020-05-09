@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JournalMdServer.DTOs.Categories;
 using JournalMdServer.DTOs.NoteValues;
+using JournalMdServer.DTOs.Tags;
 using JournalMdServer.Interfaces.DTOs;
 
 namespace JournalMdServer.DTOs.Notes
@@ -24,6 +26,9 @@ namespace JournalMdServer.DTOs.Notes
         
         public ICollection<NoteValueOutput> NoteValues { get; set; }
 
-        //TODO Tag Category
+        // Pseudo relation
+        public ICollection<long> Categories { get; set; }
+
+        public ICollection<long> Tags { get; set; }
     }
 }
