@@ -58,16 +58,22 @@ namespace JournalMdServer.Services
             }
 
             // Validate and add category
-            var categories = await categoryRepository.Query.Where(cat => inputModel.Categories.Contains(cat.Id)).ToListAsync(); // No owner check here
-            if (categories.Count() != inputModel.Categories.Count())
-                throw new AppException("Invalid category assignment.");
-            entry.NoteCategories = categories.Select(sel => new NoteCategory() { CategoryId = sel.Id }).ToList();
+            if (inputModel.Categories != null)
+            {
+                var categories = await categoryRepository.Query.Where(cat => inputModel.Categories.Contains(cat.Id)).ToListAsync(); // No owner check here
+                if (categories.Count() != inputModel.Categories.Count())
+                    throw new AppException("Invalid category assignment.");
+                entry.NoteCategories = categories.Select(sel => new NoteCategory() { CategoryId = sel.Id }).ToList();
+            }
 
             // Validate and add tags
-            var tags = await tagRepository.Query.Where(tag => tag.UserId == userId && inputModel.Tags.Contains(tag.Id)).ToListAsync(); // Owner check!
-            if (tags.Count() != inputModel.Tags.Count())
-                throw new AppException("Invalid tag assignment.");
-            entry.NoteTags = tags.Select(sel => new NoteTag() { TagId = sel.Id }).ToList();
+            if (inputModel.Tags != null)
+            {
+                var tags = await tagRepository.Query.Where(tag => tag.UserId == userId && inputModel.Tags.Contains(tag.Id)).ToListAsync(); // Owner check!
+                if (tags.Count() != inputModel.Tags.Count())
+                    throw new AppException("Invalid tag assignment.");
+                entry.NoteTags = tags.Select(sel => new NoteTag() { TagId = sel.Id }).ToList();
+            }
 
             UpdateCalculatedFields(entry, noteFields);
 

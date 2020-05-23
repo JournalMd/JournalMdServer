@@ -617,6 +617,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "DeleteTags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71678eb0-850e-485a-8b31-a57ffd6031ea",
+								"exec": [
+									"pm.test(\"response is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/Tags/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"Tags",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -668,7 +704,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1ODkwMTQ2NTIsImV4cCI6MTU4OTYxOTQ1MiwiaWF0IjoxNTg5MDE0NjUyfQ.uYTF9rmGoMRA6FHNEs0VUNKA2WyRBMQM4JsIbvSkh4s",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1OTAyMDk1OTIsImV4cCI6MTU5MDgxNDM5MiwiaWF0IjoxNTkwMjA5NTkyfQ.E7mhWfQChY6MpghffZmk3F1qtH2R8Ua7DPi8eB2EWJI",
 				"type": "string"
 			}
 		]
