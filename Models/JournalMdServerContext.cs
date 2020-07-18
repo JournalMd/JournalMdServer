@@ -12,7 +12,8 @@ namespace JournalMdServer.Models
         public JournalMdServerContext(DbContextOptions<JournalMdServerContext> options)
             : base(options)
         {
-            Database.EnsureCreated(); // TODO Migrations on prod...
+            //Database.EnsureCreated(); // TODO Migrations on prod...
+            // Database.Migrate(); // Don't use on production. Use CLI instead!
         }
 
         public DbSet<User> Users { get; set; }

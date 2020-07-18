@@ -67,6 +67,20 @@ dotnet aspnet-codegenerator controller -name NewNameController -async -api -m Ne
 dotnet ef database update
 ```
 
+### migrations
+
+```
+dotnet ef migrations add InitialCreate
+```
+
+or 
+
+```
+Add-Migration InitialCreate
+```
+
+MySQL, MS SQL Server annotations needs to be added manually as there is only one DbContext!
+
 ## Resources used
 
 * [Tutorial: Create a web API with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.1&tabs=visual-studio-code)
