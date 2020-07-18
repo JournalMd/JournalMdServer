@@ -129,7 +129,7 @@ namespace JournalMdServer.Services
             {
                 dbEntry.NoteCategories.Remove(existingCategory);
             }
-            foreach (var newCategory in categories.Where(sel => !dbEntry.NoteCategories.Any(subSel => subSel.CategoryId == sel.Id )).ToList()) // Ad not existing ones
+            foreach (var newCategory in categories.Where(sel => !dbEntry.NoteCategories.Any(subSel => subSel.CategoryId == sel.Id )).ToList()) // Add not existing ones
             {
                 dbEntry.NoteCategories.Add(new NoteCategory() { CategoryId = newCategory.Id });
             }
@@ -142,7 +142,7 @@ namespace JournalMdServer.Services
             {
                 dbEntry.NoteTags.Remove(existingTag);
             }
-            foreach (var newTag in tags.Where(sel => !dbEntry.NoteTags.Any(subSel => subSel.TagId == sel.Id)).ToList()) // Ad not existing ones
+            foreach (var newTag in tags.Where(sel => !dbEntry.NoteTags.Any(subSel => subSel.TagId == sel.Id)).ToList()) // Add not existing ones
             {
                 dbEntry.NoteTags.Add(new NoteTag() { TagId = newTag.Id });
             }
