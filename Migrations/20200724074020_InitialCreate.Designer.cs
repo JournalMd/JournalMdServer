@@ -9,31 +9,32 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JournalMdServer.Migrations
 {
     [DbContext(typeof(JournalMdServerContext))]
-    [Migration("20200718111312_InitialCreate")]
+    [Migration("20200724074020_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6");
+                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("JournalMdServer.Models.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<long?>("ParentCategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -191,38 +192,38 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("CreatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("Mood")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<long>("NoteTypeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("UpdatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -236,60 +237,60 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3190),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7336),
                             CreatedById = 1L,
-                            Date = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(2557),
+                            Date = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7077),
                             Description = @"**Test** Description
 
 # Test Header",
                             Mood = 5,
                             NoteTypeId = 1L,
                             Title = "Test Journal",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3205),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7340),
                             UpdatedById = 1L,
                             UserId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3296),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7404),
                             CreatedById = 1L,
-                            Date = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3284),
+                            Date = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7396),
                             Description = "Test",
                             Mood = 1,
                             NoteTypeId = 3L,
                             Title = "Test Task",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3300),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7405),
                             UpdatedById = 1L,
                             UserId = 1L
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3310),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7408),
                             CreatedById = 1L,
-                            Date = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3306),
+                            Date = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7407),
                             Description = "Test",
                             Mood = 3,
                             NoteTypeId = 8L,
                             Title = "Test Weight Measurement",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3314),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7409),
                             UpdatedById = 1L,
                             UserId = 1L
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3323),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7411),
                             CreatedById = 2L,
-                            Date = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3319),
+                            Date = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7410),
                             Description = @"**Test** Description
 
 # Test Header",
                             Mood = 3,
                             NoteTypeId = 1L,
                             Title = "Test Journal",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(3326),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(7412),
                             UpdatedById = 2L,
                             UserId = 2L
                         });
@@ -298,10 +299,10 @@ namespace JournalMdServer.Migrations
             modelBuilder.Entity("JournalMdServer.Models.NoteCategory", b =>
                 {
                     b.Property<long>("NoteId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("NoteId", "CategoryId");
 
@@ -314,35 +315,35 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<long>("NoteTypeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Required")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Rules")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -656,10 +657,10 @@ namespace JournalMdServer.Migrations
             modelBuilder.Entity("JournalMdServer.Models.NoteTag", b =>
                 {
                     b.Property<long>("NoteId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("TagId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("NoteId", "TagId");
 
@@ -672,25 +673,25 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("NoteDescriptionShort")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -793,31 +794,31 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("CreatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("NoteFieldId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("NoteId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("UpdatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -833,11 +834,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5691),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9021),
                             CreatedById = 1L,
                             NoteFieldId = 1L,
                             NoteId = 2L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5710),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9028),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "false"
@@ -845,11 +846,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5760),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9122),
                             CreatedById = 1L,
                             NoteFieldId = 2L,
                             NoteId = 2L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5765),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9123),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "2022-10-01"
@@ -857,11 +858,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5770),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9125),
                             CreatedById = 1L,
                             NoteFieldId = 5L,
                             NoteId = 3L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5774),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9126),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "80"
@@ -869,11 +870,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 5L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5779),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9128),
                             CreatedById = 1L,
                             NoteFieldId = 6L,
                             NoteId = 3L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5783),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9129),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "180"
@@ -881,11 +882,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 6L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5787),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9131),
                             CreatedById = 1L,
                             NoteFieldId = 7L,
                             NoteId = 3L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5791),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9131),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "78"
@@ -893,11 +894,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 7L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5796),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9134),
                             CreatedById = 1L,
                             NoteFieldId = 8L,
                             NoteId = 3L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5800),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9134),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "24,69"
@@ -905,11 +906,11 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 8L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5805),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9136),
                             CreatedById = 1L,
                             NoteFieldId = 9L,
                             NoteId = 3L,
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 203, DateTimeKind.Local).AddTicks(5809),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(9137),
                             UpdatedById = 1L,
                             UserId = 1L,
                             Value = "13,72"
@@ -920,30 +921,30 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("CreatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<long>("UpdatedById")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -955,22 +956,22 @@ namespace JournalMdServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 200, DateTimeKind.Local).AddTicks(1227),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 754, DateTimeKind.Local).AddTicks(6305),
                             CreatedById = 1L,
                             Name = "happy",
                             Title = "Happy",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 202, DateTimeKind.Local).AddTicks(8642),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(4663),
                             UpdatedById = 1L,
                             UserId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 202, DateTimeKind.Local).AddTicks(9376),
+                            CreatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(5014),
                             CreatedById = 2L,
                             Name = "fun",
                             Title = "Fun",
-                            UpdatedAt = new DateTime(2020, 7, 18, 13, 13, 12, 202, DateTimeKind.Local).AddTicks(9399),
+                            UpdatedAt = new DateTime(2020, 7, 24, 7, 40, 19, 755, DateTimeKind.Local).AddTicks(5029),
                             UpdatedById = 2L,
                             UserId = 2L
                         });
@@ -980,34 +981,34 @@ namespace JournalMdServer.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Gender")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("BLOB");
+                        .HasColumnType("longblob");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("BLOB");
+                        .HasColumnType("longblob");
 
                     b.Property<string>("Token")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -1019,15 +1020,15 @@ namespace JournalMdServer.Migrations
                             Id = 1L,
                             FirstName = "Max",
                             LastName = "Power",
-                            PasswordHash = new byte[] { 223, 233, 254, 207, 22, 246, 226, 106, 163, 18, 242, 106, 130, 134, 221, 53, 31, 98, 13, 6, 203, 189, 175, 218, 238, 202, 156, 193, 14, 124, 139, 158, 109, 193, 205, 90, 50, 102, 153, 189, 14, 68, 92, 87, 131, 202, 159, 116, 187, 111, 170, 59, 68, 135, 16, 176, 231, 189, 4, 188, 33, 207, 186, 244 },
-                            PasswordSalt = new byte[] { 77, 107, 53, 3, 195, 35, 231, 43, 121, 10, 66, 220, 100, 241, 191, 154, 8, 102, 225, 67, 218, 59, 248, 243, 81, 154, 96, 122, 133, 97, 202, 59, 236, 102, 162, 191, 121, 50, 146, 5, 88, 232, 131, 188, 4, 215, 180, 216, 183, 93, 151, 35, 205, 16, 136, 137, 175, 42, 127, 227, 150, 122, 134, 53, 119, 79, 108, 171, 32, 29, 184, 175, 189, 117, 67, 255, 149, 1, 94, 113, 240, 184, 92, 172, 216, 100, 157, 11, 214, 52, 145, 116, 19, 102, 145, 137, 86, 54, 105, 111, 78, 81, 223, 149, 222, 82, 43, 81, 249, 172, 86, 83, 146, 171, 123, 154, 113, 11, 130, 88, 240, 106, 70, 167, 185, 81, 179, 246 },
+                            PasswordHash = new byte[] { 0, 200, 2, 140, 63, 180, 122, 28, 141, 217, 112, 188, 249, 89, 179, 218, 16, 251, 218, 118, 195, 169, 48, 173, 9, 194, 108, 13, 29, 60, 52, 169, 123, 121, 114, 237, 58, 202, 26, 28, 81, 52, 111, 236, 207, 218, 207, 225, 116, 175, 119, 89, 67, 84, 34, 121, 178, 123, 0, 49, 108, 150, 121, 4 },
+                            PasswordSalt = new byte[] { 31, 49, 34, 125, 247, 129, 177, 217, 143, 30, 64, 133, 77, 6, 66, 65, 214, 48, 143, 20, 191, 210, 124, 161, 133, 140, 83, 84, 47, 49, 89, 153, 245, 13, 76, 187, 132, 64, 110, 114, 114, 106, 26, 153, 138, 138, 184, 210, 216, 2, 223, 85, 213, 182, 201, 124, 227, 39, 239, 65, 23, 229, 28, 109, 147, 66, 68, 236, 142, 103, 208, 24, 49, 226, 220, 46, 143, 63, 178, 154, 194, 91, 112, 47, 178, 192, 106, 68, 16, 155, 72, 62, 96, 205, 142, 18, 17, 94, 145, 229, 174, 208, 246, 207, 63, 81, 16, 99, 227, 171, 87, 54, 178, 234, 33, 194, 35, 157, 173, 163, 96, 195, 47, 249, 220, 77, 147, 136 },
                             Username = "1"
                         },
                         new
                         {
                             Id = 2L,
-                            PasswordHash = new byte[] { 223, 233, 254, 207, 22, 246, 226, 106, 163, 18, 242, 106, 130, 134, 221, 53, 31, 98, 13, 6, 203, 189, 175, 218, 238, 202, 156, 193, 14, 124, 139, 158, 109, 193, 205, 90, 50, 102, 153, 189, 14, 68, 92, 87, 131, 202, 159, 116, 187, 111, 170, 59, 68, 135, 16, 176, 231, 189, 4, 188, 33, 207, 186, 244 },
-                            PasswordSalt = new byte[] { 77, 107, 53, 3, 195, 35, 231, 43, 121, 10, 66, 220, 100, 241, 191, 154, 8, 102, 225, 67, 218, 59, 248, 243, 81, 154, 96, 122, 133, 97, 202, 59, 236, 102, 162, 191, 121, 50, 146, 5, 88, 232, 131, 188, 4, 215, 180, 216, 183, 93, 151, 35, 205, 16, 136, 137, 175, 42, 127, 227, 150, 122, 134, 53, 119, 79, 108, 171, 32, 29, 184, 175, 189, 117, 67, 255, 149, 1, 94, 113, 240, 184, 92, 172, 216, 100, 157, 11, 214, 52, 145, 116, 19, 102, 145, 137, 86, 54, 105, 111, 78, 81, 223, 149, 222, 82, 43, 81, 249, 172, 86, 83, 146, 171, 123, 154, 113, 11, 130, 88, 240, 106, 70, 167, 185, 81, 179, 246 },
+                            PasswordHash = new byte[] { 0, 200, 2, 140, 63, 180, 122, 28, 141, 217, 112, 188, 249, 89, 179, 218, 16, 251, 218, 118, 195, 169, 48, 173, 9, 194, 108, 13, 29, 60, 52, 169, 123, 121, 114, 237, 58, 202, 26, 28, 81, 52, 111, 236, 207, 218, 207, 225, 116, 175, 119, 89, 67, 84, 34, 121, 178, 123, 0, 49, 108, 150, 121, 4 },
+                            PasswordSalt = new byte[] { 31, 49, 34, 125, 247, 129, 177, 217, 143, 30, 64, 133, 77, 6, 66, 65, 214, 48, 143, 20, 191, 210, 124, 161, 133, 140, 83, 84, 47, 49, 89, 153, 245, 13, 76, 187, 132, 64, 110, 114, 114, 106, 26, 153, 138, 138, 184, 210, 216, 2, 223, 85, 213, 182, 201, 124, 227, 39, 239, 65, 23, 229, 28, 109, 147, 66, 68, 236, 142, 103, 208, 24, 49, 226, 220, 46, 143, 63, 178, 154, 194, 91, 112, 47, 178, 192, 106, 68, 16, 155, 72, 62, 96, 205, 142, 18, 17, 94, 145, 229, 174, 208, 246, 207, 63, 81, 16, 99, 227, 171, 87, 54, 178, 234, 33, 194, 35, 157, 173, 163, 96, 195, 47, 249, 220, 77, 147, 136 },
                             Username = "2"
                         });
                 });
