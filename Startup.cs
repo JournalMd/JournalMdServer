@@ -214,7 +214,8 @@ namespace JournalMdServer
                 });
             }
 
-            app.UseHttpsRedirection();
+            // Don't force redirect. nginx usage is encouraged and should use http (5000) instead of https (5001)
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
