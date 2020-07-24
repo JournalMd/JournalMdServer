@@ -176,8 +176,7 @@ namespace JournalMdServer
                     }
                 case "mysql":
                     {
-                        services.AddDbContextPool<JournalMdServerContext>(options => options.UseMySql(_configuration.GetConnectionString("mysqlDatabase")));
-                        //, mySqlOptions => mySqlOptions.ServerVersion(new Version(8, 0, 18), ServerType.MySql);
+                        services.AddDbContext<JournalMdServerContext>(options => options.UseMySql(_configuration.GetConnectionString("mysqlDatabase")));
                         break;
                     }
                 case "sqlite":
