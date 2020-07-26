@@ -67,8 +67,8 @@ namespace JournalMdServer
             // Add all Repositories
             services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
 
-            // Add scoped (per client connection) services https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#register-additional-services-with-extension-methods
-            services.AddScoped<UsersService>(); // or Singleton as in https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-3.1&tabs=visual-studio ?
+            // Add scoped (per client connection) services
+            services.AddScoped<UsersService>();
             services.AddScoped<NoteTypesService>();
             services.AddScoped<TagsService>();
             services.AddScoped<CategoriesService>();
@@ -91,17 +91,16 @@ namespace JournalMdServer
             {
                 x.Events = new JwtBearerEvents
                 {
-                    OnTokenValidated = context =>
+                    OnTokenValidated = async context =>
                     {
                         var usersService = context.HttpContext.RequestServices.GetRequiredService<UsersService>();
                         var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = usersService.GetById(userId);
+                        var user = await usersService.GetById(userId);
                         if (user == null)
                         {
                             // User does not exist anymore // TODO: add/check for deleted?!
                             context.Fail("Unauthorized");
                         }
-                        return Task.CompletedTask;
                     }
                 };
                 x.RequireHttpsMetadata = false;
@@ -132,11 +131,11 @@ namespace JournalMdServer
                         Email = string.Empty,
                         Url = new Uri("https://www.spech.de"),
                     },
-                    /*License = new OpenApiLicense
+                    License = new OpenApiLicense
                     {
-                        Name = "Private",
-                        Url = new Uri("https://example.com/license"),
-                    }*/
+                        Name = "MIT License",
+                        Url = new Uri("https://opensource.org/licenses/MIT"),
+                    }
                 });
                 // Add Authentication Button
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
