@@ -22,16 +22,16 @@ namespace JournalMdServer.Models
         public void SetCreateFields(long userId)
         {
             UserId = userId;
-            CreatedAt = DateTime.Now;
+            CreatedAt = DateTime.UtcNow;
             CreatedById = userId;
-            UpdatedAt = DateTime.Now;
+            UpdatedAt = DateTime.UtcNow;
             UpdatedById = UserId;
         }
 
         public void SetUpdateFields(long userId)
         {
             UserId = userId;
-            UpdatedAt = DateTime.Now;
+            UpdatedAt = DateTime.UtcNow;
             UpdatedById = UserId;
         }
     }

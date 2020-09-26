@@ -2,18 +2,29 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using JournalMdServer.Interfaces.Models;
 using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace JournalMdServer.Models
 {
     public class JournalMdServerContext : DbContext, IJournalMdServerContext
     {
         private IDbContextTransaction _transaction;
+        private readonly IWebHostEnvironment _env;
 
-        public JournalMdServerContext(DbContextOptions<JournalMdServerContext> options)
+        public JournalMdServerContext(DbContextOptions<JournalMdServerContext> options, IWebHostEnvironment env)
             : base(options)
         {
-            //Database.EnsureCreated(); // TODO Migrations on prod...
-            // Database.Migrate(); // Don't use on production. Use CLI instead!
+            _env = env;
+
+            if (_env.IsProduction())
+            {
+                Console.WriteLine("Use 'dotnet ef database update' for database creation or upgrade.");
+            } else
+            {
+                Console.WriteLine("DEV - Creating database using OnModelCreating.");
+                Database.EnsureCreated();
+            }
         }
 
         public DbSet<User> Users { get; set; }
@@ -163,30 +174,30 @@ namespace JournalMdServer.Models
             );
 
             modelBuilder.Entity<Tag>().HasData(
-                new Tag { Id = 1, UserId = 1, Name = "happy", Title = "Happy", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Tag { Id = 2, UserId = 2, Name = "fun", Title = "Fun", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+                new Tag { Id = 1, UserId = 1, Name = "happy", Title = "Happy", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new Tag { Id = 2, UserId = 2, Name = "fun", Title = "Fun", CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
             );
 
             modelBuilder.Entity<Note>().HasData(
                 // User 1 - 3 Notes
-                new Note { Id = 1, UserId = 1, NoteTypeId = 1, Title = "Test Journal", Description = "**Test** Description\n\n# Test Header", Mood = 5, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 2, UserId = 1, NoteTypeId = 3, Title = "Test Task", Description = "Test", Mood = 1, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new Note { Id = 3, UserId = 1, NoteTypeId = 8, Title = "Test Weight Measurement", Description = "Test", Mood = 3, Date = DateTime.Now, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new Note { Id = 1, UserId = 1, NoteTypeId = 1, Title = "Test Journal", Description = "**Test** Description\n\n# Test Header", Mood = 5, Date = DateTime.UtcNow, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new Note { Id = 2, UserId = 1, NoteTypeId = 3, Title = "Test Task", Description = "Test", Mood = 1, Date = DateTime.UtcNow, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new Note { Id = 3, UserId = 1, NoteTypeId = 8, Title = "Test Weight Measurement", Description = "Test", Mood = 3, Date = DateTime.UtcNow, CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                 // User 2 - 1 Note
-                new Note { Id = 4, UserId = 2, NoteTypeId = 1, Title = "Test Journal", Description = "**Test** Description\n\n# Test Header", Mood = 3, Date = DateTime.Now, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+                new Note { Id = 4, UserId = 2, NoteTypeId = 1, Title = "Test Journal", Description = "**Test** Description\n\n# Test Header", Mood = 3, Date = DateTime.UtcNow, CreatedById = 2, UpdatedById = 2, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
             );
 
             modelBuilder.Entity<NoteValue>().HasData(
                 // U1 - N1
                 // U1 - N2
-                new NoteValue { Id = 1, UserId = 1, NoteId = 2, NoteFieldId = 1, Value = "false", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 2, UserId = 1, NoteId = 2, NoteFieldId = 2, Value = "2022-10-01", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
+                new NoteValue { Id = 1, UserId = 1, NoteId = 2, NoteFieldId = 1, Value = "false", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new NoteValue { Id = 2, UserId = 1, NoteId = 2, NoteFieldId = 2, Value = "2022-10-01", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                 // U1 - N3
-                new NoteValue { Id = 4, UserId = 1, NoteId = 3, NoteFieldId = 5, Value = "80", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 5, UserId = 1, NoteId = 3, NoteFieldId = 6, Value = "180", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 6, UserId = 1, NoteId = 3, NoteFieldId = 7, Value = "78", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 7, UserId = 1, NoteId = 3, NoteFieldId = 8, Value = "24,69", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now },
-                new NoteValue { Id = 8, UserId = 1, NoteId = 3, NoteFieldId = 9, Value = "13,72", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now }
+                new NoteValue { Id = 4, UserId = 1, NoteId = 3, NoteFieldId = 5, Value = "80", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new NoteValue { Id = 5, UserId = 1, NoteId = 3, NoteFieldId = 6, Value = "180", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new NoteValue { Id = 6, UserId = 1, NoteId = 3, NoteFieldId = 7, Value = "78", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new NoteValue { Id = 7, UserId = 1, NoteId = 3, NoteFieldId = 8, Value = "24,69", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new NoteValue { Id = 8, UserId = 1, NoteId = 3, NoteFieldId = 9, Value = "13,72", CreatedById = 1, UpdatedById = 1, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
                 // U2 - N1
             );
         }
